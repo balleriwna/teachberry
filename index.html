@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teacher Hub - Dashboard Guru</title>
+  <title>Teacher Hub - Dashboard Bu Hanifah</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,7 +25,7 @@
             }
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Nunito', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
           }
         }
       }
@@ -71,7 +71,7 @@
           </div>
           <div>
             <h1 class="font-extrabold text-base leading-tight text-slate-800">Teacher Hub</h1>
-            <span class="text-xs text-slate-500 font-medium">Workspace Digital</span>
+            <span class="text-xs text-slate-500 font-medium">Bu Hanifah Workspace</span>
           </div>
         </div>
         <button id="close-sidebar-btn" type="button" class="md:hidden text-slate-400 hover:text-slate-600">
@@ -81,7 +81,7 @@
 
       <nav class="p-4 space-y-6">
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">UTAMA</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">GENERAL</p>
           <div class="space-y-1">
             <button type="button" data-tab="dashboard" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm bg-pastel-soft text-pastel-primary">
               <i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Dashboard
@@ -94,6 +94,18 @@
             </button>
             <button type="button" data-tab="notes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
               <i data-lucide="file-text" class="w-4.5 h-4.5"></i> Quick Notes
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">TEACHING TOOLS</p>
+          <div class="space-y-1">
+            <button type="button" data-tab="planner" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="book-open" class="w-4.5 h-4.5"></i> Teaching Planner
+            </button>
+            <button type="button" data-tab="library" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="library" class="w-4.5 h-4.5"></i> Digital Library
             </button>
           </div>
         </div>
@@ -115,11 +127,11 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-y-auto">
       
-      <!-- HERO BANNER -->
+      <!-- HERO BANNER WELCOME -->
       <div class="hero-banner rounded-2xl p-6 md:p-8 text-white shadow-sm mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-md text-xs font-semibold mb-2">Dashboard Pengajar</span>
-          <h2 class="text-2xl md:text-3xl font-bold">Selamat Datang, Ibu Guru</h2>
+          <h2 class="text-2xl md:text-3xl font-bold">Selamat Datang, Bu Hanifah</h2>
           <p id="current-date" class="text-xs md:text-sm font-medium text-white/90 mt-1">Memuat tanggal...</p>
         </div>
 
@@ -144,7 +156,6 @@
               </div>
               <span id="day-badge" class="bg-pastel-soft text-pastel-primary px-3 py-1 rounded-md text-xs font-bold">Hari Ini</span>
             </div>
-            
             <div id="today-schedule-list" class="space-y-3"></div>
           </div>
 
@@ -175,7 +186,7 @@
         </div>
       </section>
 
-      <!-- TAB 2: JADWAL MENGAJAR -->
+      <!-- TAB 2: JADWAL MENGAJAR LENGKAP -->
       <section id="view-schedule" class="tab-view hidden space-y-6">
         <div class="card-clean rounded-2xl p-6 space-y-4">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-2">
@@ -228,7 +239,39 @@
         <div id="notes-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"></div>
       </section>
 
-      <!-- TAB 5: HABIT TRACKER -->
+      <!-- TAB 5: TEACHING PLANNER -->
+      <section id="view-planner" class="tab-view hidden space-y-6">
+        <div class="card-clean rounded-2xl p-6 space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="font-bold text-lg text-slate-800">Teaching Planner (RPP & Modul Ajar)</h3>
+              <p class="text-xs text-slate-500 font-medium">Perencanaan modul pembelajaran harian Bu Hanifah</p>
+            </div>
+            <button id="btn-add-planner" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+              <i data-lucide="plus" class="w-4 h-4"></i> Rencana Baru
+            </button>
+          </div>
+          <div id="planner-list" class="space-y-3"></div>
+        </div>
+      </section>
+
+      <!-- TAB 6: DIGITAL LIBRARY -->
+      <section id="view-library" class="tab-view hidden space-y-6">
+        <div class="card-clean rounded-2xl p-6 space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+            <div>
+              <h3 class="font-bold text-lg text-slate-800">Digital Library & Buku Peminjaman</h3>
+              <p class="text-xs text-slate-500 font-medium">Katalog koleksi buku dan transaksi perpustakaan</p>
+            </div>
+            <button id="btn-add-book" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+              <i data-lucide="plus" class="w-4 h-4"></i> Tambah Buku
+            </button>
+          </div>
+          <div id="library-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </div>
+      </section>
+
+      <!-- TAB 7: HABIT TRACKER -->
       <section id="view-habits" class="tab-view hidden space-y-6">
         <div class="card-clean rounded-2xl p-6 space-y-4">
           <h3 class="font-bold text-lg text-slate-800">Habit Tracker Pengajar</h3>
@@ -243,7 +286,7 @@
   <div id="schedule-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-        <h3 id="modal-title" class="font-bold text-base text-slate-800">Edit Jadwal Mengajar</h3>
+        <h3 id="modal-title" class="font-bold text-base text-slate-800">Edit Slot Jadwal</h3>
         <button id="close-modal-btn" type="button" class="text-slate-400 hover:text-slate-600">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
@@ -251,7 +294,6 @@
 
       <form id="schedule-form" class="space-y-3">
         <input type="hidden" id="edit-schedule-id">
-        
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1">Hari</label>
           <select id="edit-day" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary">
@@ -262,17 +304,14 @@
             <option value="Jumat">Jumat</option>
           </select>
         </div>
-
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1">Waktu Slot (contoh: 08.35–09.10)</label>
           <input type="text" id="edit-timeslot" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
         </div>
-
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1">Nama Kegiatan / Mata Pelajaran</label>
           <input type="text" id="edit-activity" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
         </div>
-
         <div>
           <label class="block text-xs font-bold text-slate-600 mb-1">Kategori Tampilan</label>
           <select id="edit-category" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary">
@@ -284,7 +323,6 @@
             <option value="istirahat">Istirahat / Ishoma / Pulang (Abu-abu)</option>
           </select>
         </div>
-
         <div class="flex justify-end gap-2 pt-3">
           <button type="button" id="btn-delete-schedule" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold mr-auto hidden">Hapus Slot</button>
           <button type="button" id="btn-cancel-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold">Batal</button>
@@ -294,9 +332,32 @@
     </div>
   </div>
 
-  <!-- LOGIK SISTEM DAN JAVASCRIPT -->
+  <!-- MODAL EDIT TASK MANAGER -->
+  <div id="task-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-base text-slate-800">Edit Judul Tugas</h3>
+        <button id="close-task-modal-btn" type="button" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form id="task-edit-form" class="space-y-3">
+        <input type="hidden" id="edit-task-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Deskripsi Tugas</label>
+          <input type="text" id="edit-task-title" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div class="flex justify-end gap-2 pt-3">
+          <button type="button" id="btn-cancel-task-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT SYSTEM LOGIC -->
   <script>
-    // DATA JADWAL INTERAKTIF (BISA DITAMBAH, EDIT, DAN DIHAPUS)
+    // DATA JADWAL INTERAKTIF
     let scheduleList = [
       { id: '1', day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
       { id: '2', day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
@@ -359,7 +420,17 @@
 
     let tasks = [
       { id: '1', title: 'Menyiapkan Modul Pembelajaran Kelas 4B', completed: false },
-      { id: '2', title: 'Koreksi Lembar Kerja Siswa', completed: true }
+      { id: '2', title: 'Koreksi Lembar Kerja Siswa Bahasa Indonesia', completed: true }
+    ];
+
+    let planners = [
+      { id: '1', title: 'Bahasa Indonesia - Teks Deskripsi', class: 'Kelas 4B', date: '2026-10-29', topic: 'Membaca dan Mengamati Paragraf' },
+      { id: '2', title: 'Seni Rupa - Ragam Hias Nusantara', class: 'Kelas 4A', date: '2026-10-30', topic: 'Membuat Motif Batik Sederhana' }
+    ];
+
+    let books = [
+      { id: '1', title: 'Ensiklopedia Sains Anak', author: 'Bambang S.', status: 'Tersedia' },
+      { id: '2', title: 'Cerita Rakyat Nusantara', author: 'Lilis A.', status: 'Dipinjam 4B' }
     ];
 
     const getBadgeStyle = (cat) => {
@@ -374,7 +445,7 @@
       }
     };
 
-    // SWITCH TAB NAVIGASI
+    // NAVIGASI SWITCH TAB
     function switchTab(tabName) {
       document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.nav-item').forEach(el => {
@@ -437,7 +508,7 @@
       lucide.createIcons();
     }
 
-    // RENDER TABEL JADWAL PEKANAN
+    // RENDER JADWAL PEKANAN
     function renderFullScheduleTable() {
       const timeSlots = Array.from(new Set(scheduleList.map(s => s.timeSlot)));
       const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
@@ -450,7 +521,7 @@
             const match = scheduleList.find(s => s.day === day && s.timeSlot === slot);
             return match 
               ? `<td class="p-2 text-center">
-                  <div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center group relative flex items-center justify-between gap-1">
+                  <div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center flex items-center justify-between gap-1">
                     <span class="flex-1">${match.activity}</span>
                     <button type="button" onclick="openEditModal('${match.id}')" class="p-1 rounded bg-white/60 hover:bg-white text-slate-700">
                       <i data-lucide="edit-2" class="w-3 h-3"></i>
@@ -468,7 +539,7 @@
       lucide.createIcons();
     }
 
-    // MODAL EDIT DAN TAMBAH JADWAL
+    // MODAL EDIT JADWAL
     const modal = document.getElementById('schedule-modal');
     const modalTitle = document.getElementById('modal-title');
     const form = document.getElementById('schedule-form');
@@ -517,10 +588,8 @@
       const category = document.getElementById('edit-category').value;
 
       if (id) {
-        // Update data jadwal
         scheduleList = scheduleList.map(s => s.id === id ? { id, day, timeSlot, activity, category } : s);
       } else {
-        // Tambah jadwal baru
         scheduleList.push({ id: Date.now().toString(), day, timeSlot, activity, category });
       }
 
@@ -538,7 +607,9 @@
       renderFullScheduleTable();
     });
 
-    // TASK MANAGER
+    // TASK MANAGER WITH EDIT MODAL
+    const taskModal = document.getElementById('task-modal');
+    
     function renderTasks() {
       document.getElementById('task-count-badge').textContent = tasks.filter(t => !t.completed).length;
 
@@ -556,9 +627,14 @@
                 class="rounded text-pastel-primary focus:ring-0 w-4 h-4 cursor-pointer">
               <span class="text-xs font-semibold ${t.completed ? 'line-through text-slate-400' : 'text-slate-700'}">${t.title}</span>
             </div>
-            <button type="button" onclick="deleteTask('${t.id}')" class="text-slate-300 hover:text-rose-500">
-              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-            </button>
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="openEditTaskModal('${t.id}')" class="text-slate-400 hover:text-pastel-primary p-1">
+                <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+              </button>
+              <button type="button" onclick="deleteTask('${t.id}')" class="text-slate-300 hover:text-rose-500 p-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
           </div>
         `).join('');
       };
@@ -578,6 +654,27 @@
       renderTasks();
     };
 
+    window.openEditTaskModal = function(id) {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+      document.getElementById('edit-task-id').value = task.id;
+      document.getElementById('edit-task-title').value = task.title;
+      taskModal.classList.remove('hidden');
+    };
+
+    document.getElementById('close-task-modal-btn').addEventListener('click', () => taskModal.classList.add('hidden'));
+    document.getElementById('btn-cancel-task-modal').addEventListener('click', () => taskModal.classList.add('hidden'));
+
+    document.getElementById('task-edit-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-task-id').value;
+      const title = document.getElementById('edit-task-title').value.trim();
+      if (!title) return;
+      tasks = tasks.map(t => t.id === id ? { ...t, title } : t);
+      taskModal.classList.add('hidden');
+      renderTasks();
+    });
+
     function addTask(inputEl) {
       const title = inputEl.value.trim();
       if (!title) return;
@@ -594,6 +691,78 @@
     document.getElementById('add-task-form-main').addEventListener('submit', (e) => {
       e.preventDefault();
       addTask(document.getElementById('task-input-main'));
+    });
+
+    // TEACHING PLANNER CRUD
+    function renderPlanners() {
+      const container = document.getElementById('planner-list');
+      container.innerHTML = planners.map(p => `
+        <div class="p-4 rounded-xl border border-slate-100 bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-pastel-soft text-pastel-primary">${p.class}</span>
+            <h4 class="font-bold text-sm text-slate-800 mt-1">${p.title}</h4>
+            <p class="text-xs text-slate-500">Topik: ${p.topic} • Tanggal: ${p.date}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="editPlanner('${p.id}')" class="text-xs font-bold text-pastel-primary bg-pastel-soft px-3 py-1.5 rounded-lg">Edit Rencana</button>
+            <button type="button" onclick="deletePlanner('${p.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 px-3 py-1.5 rounded-lg">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.editPlanner = function(id) {
+      const title = prompt("Masukkan Judul RPP Baru:");
+      if (!title) return;
+      planners = planners.map(p => p.id === id ? { ...p, title } : p);
+      renderPlanners();
+    };
+
+    window.deletePlanner = function(id) {
+      planners = planners.filter(p => p.id !== id);
+      renderPlanners();
+    };
+
+    document.getElementById('btn-add-planner').addEventListener('click', () => {
+      const title = prompt("Masukkan Judul RPP / Modul Ajar:");
+      if (!title) return;
+      planners.push({ id: Date.now().toString(), title, class: 'Kelas 4B', date: '2026-11-01', topic: 'Materi Pembelajaran Baru' });
+      renderPlanners();
+    });
+
+    // DIGITAL LIBRARY CRUD
+    function renderLibrary() {
+      const container = document.getElementById('library-list');
+      container.innerHTML = books.map(b => `
+        <div class="p-4 rounded-xl border border-slate-100 bg-white flex justify-between items-center">
+          <div>
+            <h4 class="font-bold text-sm text-slate-800">${b.title}</h4>
+            <p class="text-xs text-slate-500">Penulis: ${b.author}</p>
+            <span class="inline-block mt-2 text-[10px] font-bold px-2.5 py-0.5 rounded ${b.status === 'Tersedia' ? 'bg-pastel-green text-emerald-800' : 'bg-pastel-pink text-pink-900'}">${b.status}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <button type="button" onclick="toggleBookStatus('${b.id}')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg">Ubah Status</button>
+            <button type="button" onclick="deleteBook('${b.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 px-2.5 py-1 rounded-lg">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.toggleBookStatus = function(id) {
+      books = books.map(b => b.id === id ? { ...b, status: b.status === 'Tersedia' ? 'Dipinjam' : 'Tersedia' } : b);
+      renderLibrary();
+    };
+
+    window.deleteBook = function(id) {
+      books = books.filter(b => b.id !== id);
+      renderLibrary();
+    };
+
+    document.getElementById('btn-add-book').addEventListener('click', () => {
+      const title = prompt("Judul Buku Baru:");
+      if (!title) return;
+      books.push({ id: Date.now().toString(), title, author: 'Penulis Umum', status: 'Tersedia' });
+      renderLibrary();
     });
 
     // HABIT TRACKER DEMO
@@ -647,10 +816,12 @@
       backdrop.classList.add('hidden');
     });
 
-    // INIT INITIAL STATE
+    // INIT INITIAL RENDER
     renderTodaySchedule();
     renderFullScheduleTable();
     renderTasks();
+    renderPlanners();
+    renderLibrary();
     lucide.createIcons();
   </script>
 </body>
