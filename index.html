@@ -112,7 +112,7 @@
     <!-- BACKDROP MOBILE -->
     <div id="backdrop" class="fixed inset-0 bg-slate-900/20 z-30 hidden md:hidden"></div>
 
-    <!-- UTAMA CONTAINER -->
+    <!-- MAIN CONTAINER -->
     <main class="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-y-auto">
       
       <!-- HERO BANNER -->
@@ -178,9 +178,14 @@
       <!-- TAB 2: JADWAL MENGAJAR -->
       <section id="view-schedule" class="tab-view hidden space-y-6">
         <div class="card-clean rounded-2xl p-6 space-y-4">
-          <div class="border-b border-slate-100 pb-4">
-            <h3 class="font-bold text-lg text-slate-800">Jadwal Mengajar Pekanan</h3>
-            <p class="text-xs text-slate-500 font-medium">Bahasa Indonesia, Seni, dan Perpustakaan • SD Islam Makarima</p>
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-2">
+            <div>
+              <h3 class="font-bold text-lg text-slate-800">Jadwal Mengajar Pekanan</h3>
+              <p class="text-xs text-slate-500 font-medium">Bahasa Indonesia, Seni, dan Perpustakaan • SD Islam Makarima</p>
+            </div>
+            <button id="btn-add-schedule" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+              <i data-lucide="plus" class="w-4 h-4"></i> Tambah Slot Jadwal
+            </button>
           </div>
           <div class="overflow-x-auto rounded-xl border border-slate-200">
             <table class="w-full border-collapse bg-white">
@@ -234,67 +239,122 @@
     </main>
   </div>
 
+  <!-- MODAL EDIT JADWAL -->
+  <div id="schedule-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 id="modal-title" class="font-bold text-base text-slate-800">Edit Jadwal Mengajar</h3>
+        <button id="close-modal-btn" type="button" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="schedule-form" class="space-y-3">
+        <input type="hidden" id="edit-schedule-id">
+        
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Hari</label>
+          <select id="edit-day" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary">
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Waktu Slot (contoh: 08.35–09.10)</label>
+          <input type="text" id="edit-timeslot" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Nama Kegiatan / Mata Pelajaran</label>
+          <input type="text" id="edit-activity" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Kategori Tampilan</label>
+          <select id="edit-category" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary">
+            <option value="kelas">Kelas Pembelajaran (Biru Pastel)</option>
+            <option value="perpus">Perpustakaan (Pink Pastel)</option>
+            <option value="ibadah">Ibadah / Dzikir / Murojaah (Kuning Pastel)</option>
+            <option value="tahfidz">Tahfidz (Ungu Pastel)</option>
+            <option value="kegiatan_khusus">Pramuka / Ekskul / Literasi (Hijau Pastel)</option>
+            <option value="istirahat">Istirahat / Ishoma / Pulang (Abu-abu)</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3">
+          <button type="button" id="btn-delete-schedule" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold mr-auto hidden">Hapus Slot</button>
+          <button type="button" id="btn-cancel-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- LOGIK SISTEM DAN JAVASCRIPT -->
   <script>
-    // DATA JADWAL (SD ISLAM MAKARIMA)
-    const INITIAL_SCHEDULE = [
-      { day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Senin", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
-      { day: "Senin", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
-      { day: "Senin", timeSlot: "09.45–10.20", activity: "PERPUS (5)", category: "perpus" },
-      { day: "Senin", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Senin", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Senin", timeSlot: "11.10–11.45", activity: "5 & PERPUS (2B)", category: "perpus" },
-      { day: "Senin", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Senin", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Senin", timeSlot: "13.00–13.35", activity: "6", category: "kelas" },
-      { day: "Senin", timeSlot: "13.35–14.00", activity: "PERPUS (3C)", category: "perpus" },
-      { day: "Senin", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Selasa", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Selasa", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & PERPUS (2A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "09.10–09.45", activity: "4A", category: "kelas" },
-      { day: "Selasa", timeSlot: "09.45–10.20", activity: "PERPUS (4A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Selasa", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & PERPUS (1A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Selasa", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & PERPUS (2C)", category: "perpus" },
-      { day: "Selasa", timeSlot: "13.35–14.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Rabu", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Rabu", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Rabu", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Rabu", timeSlot: "11.10–11.45", activity: "4A", category: "kelas" },
-      { day: "Rabu", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Rabu", timeSlot: "12.25–13.00", activity: "4A", category: "kelas" },
-      { day: "Rabu", timeSlot: "13.00–13.35", activity: "PERPUS (4B)", category: "perpus" },
-      { day: "Rabu", timeSlot: "13.35–14.00", activity: "4B", category: "kelas" },
-      { day: "Rabu", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Kamis", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Kamis", timeSlot: "07.35–08.35", activity: "PRAMUKA", category: "kegiatan_khusus" },
-      { day: "Kamis", timeSlot: "08.35–09.10", activity: "4A & PERPUS (3B)", category: "perpus" },
-      { day: "Kamis", timeSlot: "09.45–10.20", activity: "TKA LITERASI", category: "kegiatan_khusus" },
-      { day: "Kamis", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Kamis", timeSlot: "10.35–11.10", activity: "SENI (4A)", category: "kelas" },
-      { day: "Kamis", timeSlot: "11.10–11.45", activity: "SENI (4A)", category: "kelas" },
-      { day: "Kamis", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Kamis", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Kamis", timeSlot: "13.00–13.35", activity: "6 & PERPUS (1B)", category: "perpus" },
-      { day: "Kamis", timeSlot: "14.00–14.30", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Jumat", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Jumat", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Jumat", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
-      { day: "Jumat", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
-      { day: "Jumat", timeSlot: "09.45–10.20", activity: "5 & PERPUS (3A)", category: "perpus" },
-      { day: "Jumat", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Jumat", timeSlot: "10.35–11.10", activity: "5 & PERPUS (1C)", category: "perpus" },
-      { day: "Jumat", timeSlot: "11.10–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Jumat", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Jumat", timeSlot: "13.00–14.00", activity: "EKSKUL / TKA LITERASI", category: "kegiatan_khusus" },
-      { day: "Jumat", timeSlot: "14.00–14.30", activity: "PULANG: 14.30 WIB", category: "istirahat" }
+    // DATA JADWAL INTERAKTIF (BISA DITAMBAH, EDIT, DAN DIHAPUS)
+    let scheduleList = [
+      { id: '1', day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: '2', day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: '3', day: "Senin", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
+      { id: '4', day: "Senin", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
+      { id: '5', day: "Senin", timeSlot: "09.45–10.20", activity: "PERPUS (5)", category: "perpus" },
+      { id: '6', day: "Senin", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: '7', day: "Senin", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
+      { id: '8', day: "Senin", timeSlot: "11.10–11.45", activity: "5 & PERPUS (2B)", category: "perpus" },
+      { id: '9', day: "Senin", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: '10', day: "Senin", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: '11', day: "Senin", timeSlot: "13.00–13.35", activity: "6", category: "kelas" },
+      { id: '12', day: "Senin", timeSlot: "13.35–14.00", activity: "PERPUS (3C)", category: "perpus" },
+      { id: '13', day: "Senin", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: '14', day: "Selasa", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: '15', day: "Selasa", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: '16', day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & PERPUS (2A)", category: "perpus" },
+      { id: '17', day: "Selasa", timeSlot: "09.10–09.45", activity: "4A", category: "kelas" },
+      { id: '18', day: "Selasa", timeSlot: "09.45–10.20", activity: "PERPUS (4A)", category: "perpus" },
+      { id: '19', day: "Selasa", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: '20', day: "Selasa", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
+      { id: '21', day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & PERPUS (1A)", category: "perpus" },
+      { id: '22', day: "Selasa", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: '23', day: "Selasa", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: '24', day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & PERPUS (2C)", category: "perpus" },
+      { id: '25', day: "Selasa", timeSlot: "13.35–14.00", activity: "6", category: "kelas" },
+      { id: '26', day: "Selasa", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: '27', day: "Rabu", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: '28', day: "Rabu", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: '29', day: "Rabu", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: '30', day: "Rabu", timeSlot: "11.10–11.45", activity: "4A", category: "kelas" },
+      { id: '31', day: "Rabu", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: '32', day: "Rabu", timeSlot: "12.25–13.00", activity: "4A", category: "kelas" },
+      { id: '33', day: "Rabu", timeSlot: "13.00–13.35", activity: "PERPUS (4B)", category: "perpus" },
+      { id: '34', day: "Rabu", timeSlot: "13.35–14.00", activity: "4B", category: "kelas" },
+      { id: '35', day: "Rabu", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: '36', day: "Kamis", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: '37', day: "Kamis", timeSlot: "07.35–08.35", activity: "PRAMUKA", category: "kegiatan_khusus" },
+      { id: '38', day: "Kamis", timeSlot: "08.35–09.10", activity: "4A & PERPUS (3B)", category: "perpus" },
+      { id: '39', day: "Kamis", timeSlot: "09.45–10.20", activity: "TKA LITERASI", category: "kegiatan_khusus" },
+      { id: '40', day: "Kamis", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: '41', day: "Kamis", timeSlot: "10.35–11.10", activity: "SENI (4A)", category: "kelas" },
+      { id: '42', day: "Kamis", timeSlot: "11.10–11.45", activity: "SENI (4A)", category: "kelas" },
+      { id: '43', day: "Kamis", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: '44', day: "Kamis", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: '45', day: "Kamis", timeSlot: "13.00–13.35", activity: "6 & PERPUS (1B)", category: "perpus" },
+      { id: '46', day: "Kamis", timeSlot: "14.00–14.30", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: '47', day: "Jumat", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: '48', day: "Jumat", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: '49', day: "Jumat", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
+      { id: '50', day: "Jumat", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
+      { id: '51', day: "Jumat", timeSlot: "09.45–10.20", activity: "5 & PERPUS (3A)", category: "perpus" },
+      { id: '52', day: "Jumat", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: '53', day: "Jumat", timeSlot: "10.35–11.10", activity: "5 & PERPUS (1C)", category: "perpus" },
+      { id: '54', day: "Jumat", timeSlot: "11.10–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: '55', day: "Jumat", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: '56', day: "Jumat", timeSlot: "13.00–14.00", activity: "EKSKUL / TKA LITERASI", category: "kegiatan_khusus" },
+      { id: '57', day: "Jumat", timeSlot: "14.00–14.30", activity: "PULANG: 14.30 WIB", category: "istirahat" }
     ];
 
     let tasks = [
@@ -314,7 +374,7 @@
       }
     };
 
-    // NAVIGASI TAB UTAMA
+    // SWITCH TAB NAVIGASI
     function switchTab(tabName) {
       document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.nav-item').forEach(el => {
@@ -331,12 +391,10 @@
         activeBtn.classList.remove('text-slate-600');
       }
 
-      // Tutup menu mobile jika terbuka
       document.getElementById('sidebar').classList.add('-translate-x-full');
       document.getElementById('backdrop').classList.add('hidden');
     }
 
-    // EVENT LISTENERS NAVIGASI
     document.querySelectorAll('.nav-item').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const tab = e.currentTarget.getAttribute('data-tab');
@@ -355,7 +413,7 @@
     function renderTodaySchedule() {
       const container = document.getElementById('today-schedule-list');
       const targetDay = (currentDayName === 'Minggu' || currentDayName === 'Sabtu') ? 'Senin' : currentDayName;
-      const filtered = INITIAL_SCHEDULE.filter(s => s.day === targetDay);
+      const filtered = scheduleList.filter(s => s.day === targetDay);
 
       if (filtered.length === 0) {
         container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs font-semibold">Tidak ada jadwal mengajar hari ini.</div>`;
@@ -368,18 +426,20 @@
             <span class="text-xs font-bold px-2 py-0.5 bg-white/80 rounded">${item.timeSlot}</span>
             <span class="font-bold text-xs">${item.activity}</span>
           </div>
-          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white/40">${item.category}</span>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white/40">${item.category}</span>
+            <button type="button" onclick="openEditModal('${item.id}')" class="p-1 hover:bg-white/60 rounded text-slate-600">
+              <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
         </div>
       `).join('');
+      lucide.createIcons();
     }
 
-    // RENDER TABEL JADWAL MENGAJAR PEKANAN
+    // RENDER TABEL JADWAL PEKANAN
     function renderFullScheduleTable() {
-      const timeSlots = [
-        "07.00–07.35", "07.35–08.35", "08.35–09.10", "09.10–09.45",
-        "09.45–10.20", "10.20–10.35", "10.35–11.10", "11.10–11.45",
-        "11.45–12.25", "12.25–13.00", "13.00–13.35", "13.35–14.00", "14.00–14.30"
-      ];
+      const timeSlots = Array.from(new Set(scheduleList.map(s => s.timeSlot)));
       const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
       const tbody = document.getElementById('full-schedule-table-body');
 
@@ -387,16 +447,98 @@
         <tr class="border-b border-slate-100 hover:bg-slate-50">
           <td class="p-3 font-semibold text-slate-500 whitespace-nowrap">${slot}</td>
           ${days.map(day => {
-            const match = INITIAL_SCHEDULE.find(s => s.day === day && s.timeSlot === slot);
+            const match = scheduleList.find(s => s.day === day && s.timeSlot === slot);
             return match 
-              ? `<td class="p-2 text-center"><div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center">${match.activity}</div></td>`
-              : `<td class="p-2 text-slate-300 text-center"><div class="p-2 border border-dashed border-slate-200 rounded-lg text-[10px]">Kosong</div></td>`;
+              ? `<td class="p-2 text-center">
+                  <div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center group relative flex items-center justify-between gap-1">
+                    <span class="flex-1">${match.activity}</span>
+                    <button type="button" onclick="openEditModal('${match.id}')" class="p-1 rounded bg-white/60 hover:bg-white text-slate-700">
+                      <i data-lucide="edit-2" class="w-3 h-3"></i>
+                    </button>
+                  </div>
+                </td>`
+              : `<td class="p-2 text-slate-300 text-center">
+                  <button type="button" onclick="openAddModalForSlot('${day}', '${slot}')" class="w-full p-2 border border-dashed border-slate-200 rounded-lg text-[10px] text-slate-400 hover:border-pastel-primary hover:text-pastel-primary">
+                    + Tambah
+                  </button>
+                </td>`;
           }).join('')}
         </tr>
       `).join('');
+      lucide.createIcons();
     }
 
-    // MANAGEMENT TUGAS (TASK MANAGER)
+    // MODAL EDIT DAN TAMBAH JADWAL
+    const modal = document.getElementById('schedule-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const form = document.getElementById('schedule-form');
+    const deleteBtn = document.getElementById('btn-delete-schedule');
+
+    window.openEditModal = function(id) {
+      const item = scheduleList.find(s => s.id === id);
+      if (!item) return;
+
+      document.getElementById('edit-schedule-id').value = item.id;
+      document.getElementById('edit-day').value = item.day;
+      document.getElementById('edit-timeslot').value = item.timeSlot;
+      document.getElementById('edit-activity').value = item.activity;
+      document.getElementById('edit-category').value = item.category;
+
+      modalTitle.textContent = "Edit Slot Jadwal";
+      deleteBtn.classList.remove('hidden');
+      modal.classList.remove('hidden');
+    };
+
+    window.openAddModalForSlot = function(day, slot) {
+      document.getElementById('edit-schedule-id').value = '';
+      document.getElementById('edit-day').value = day;
+      document.getElementById('edit-timeslot').value = slot;
+      document.getElementById('edit-activity').value = '';
+      document.getElementById('edit-category').value = 'kelas';
+
+      modalTitle.textContent = "Tambah Slot Jadwal";
+      deleteBtn.classList.add('hidden');
+      modal.classList.remove('hidden');
+    };
+
+    document.getElementById('btn-add-schedule').addEventListener('click', () => {
+      openAddModalForSlot('Senin', '08.35–09.10');
+    });
+
+    document.getElementById('close-modal-btn').addEventListener('click', () => modal.classList.add('hidden'));
+    document.getElementById('btn-cancel-modal').addEventListener('click', () => modal.classList.add('hidden'));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-schedule-id').value;
+      const day = document.getElementById('edit-day').value;
+      const timeSlot = document.getElementById('edit-timeslot').value;
+      const activity = document.getElementById('edit-activity').value;
+      const category = document.getElementById('edit-category').value;
+
+      if (id) {
+        // Update data jadwal
+        scheduleList = scheduleList.map(s => s.id === id ? { id, day, timeSlot, activity, category } : s);
+      } else {
+        // Tambah jadwal baru
+        scheduleList.push({ id: Date.now().toString(), day, timeSlot, activity, category });
+      }
+
+      modal.classList.add('hidden');
+      renderTodaySchedule();
+      renderFullScheduleTable();
+    });
+
+    deleteBtn.addEventListener('click', () => {
+      const id = document.getElementById('edit-schedule-id').value;
+      if (!id) return;
+      scheduleList = scheduleList.filter(s => s.id !== id);
+      modal.classList.add('hidden');
+      renderTodaySchedule();
+      renderFullScheduleTable();
+    });
+
+    // TASK MANAGER
     function renderTasks() {
       document.getElementById('task-count-badge').textContent = tasks.filter(t => !t.completed).length;
 
