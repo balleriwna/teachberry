@@ -14,6 +14,7 @@
           colors: {
             pastel: {
               primary: '#4A8BB2',
+              primaryHover: '#3B7395',
               soft: '#EBF4FA',
               sky: '#BCE0F5',
               navy: '#1E293B',
@@ -40,48 +41,47 @@
     .card-clean {
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
     }
     .hero-banner {
-      background: linear-gradient(135deg, #4A8BB2 0%, #68A4C8 50%, #BCE0F5 100%);
+      background: linear-gradient(135deg, #4A8BB2 0%, #68A4C8 60%, #9BCCE8 100%);
     }
-    /* Loading Spinner */
-    .spinner {
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      width: 18px;
-      height: 18px;
-      animation: spin 0.8s linear infinite;
+    /* Custom scrollbar for clean look */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
     }
   </style>
 </head>
-<body class="bg-pastel-bg font-sans text-slate-800 min-h-screen flex flex-col md:flex-row antialiased">
+<body class="bg-pastel-bg font-sans text-slate-800 min-h-screen flex flex-col md:flex-row antialiased overflow-x-hidden">
 
   <div id="app" class="flex w-full min-h-screen">
     
     <!-- HEADER MOBILE -->
-    <div class="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 p-4 flex justify-between items-center z-30">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-pastel-primary text-white flex items-center justify-center font-bold text-sm">TH</div>
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 p-4 flex justify-between items-center z-30 shadow-xs">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-pastel-primary text-white flex items-center justify-center font-bold text-sm shadow-xs">TH</div>
         <span class="font-bold text-slate-800 text-base">Teacher Hub</span>
       </div>
       <div class="flex items-center gap-2">
-        <span id="sync-status-mobile" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
-          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Hubungkan...
+        <span id="sync-status-mobile" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Siap
         </span>
-        <button id="mobile-menu-btn" type="button" class="p-2 rounded-lg bg-slate-100 text-slate-700">
-          <i data-lucide="menu"></i>
+        <button id="mobile-menu-btn" type="button" class="p-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+          <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
 
     <!-- SIDEBAR NAVIGATION -->
-    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto">
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out flex flex-col justify-between shrink-0">
       <div class="p-6 border-b border-slate-100 flex justify-between items-center">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-xl bg-pastel-primary text-white flex items-center justify-center font-extrabold text-base shadow-sm">
@@ -92,85 +92,85 @@
             <span class="text-xs text-slate-500 font-medium">Bu Hanifah Workspace</span>
           </div>
         </div>
-        <button id="close-sidebar-btn" type="button" class="md:hidden text-slate-400 hover:text-slate-600">
-          <i data-lucide="x"></i>
+        <button id="close-sidebar-btn" type="button" class="md:hidden text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <nav class="p-4 space-y-6">
+      <nav class="p-4 space-y-6 overflow-y-auto flex-1">
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">UTAMA</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3 uppercase">Utama</p>
           <div class="space-y-1">
-            <button type="button" data-tab="dashboard" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm bg-pastel-soft text-pastel-primary">
+            <button type="button" data-tab="dashboard" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm bg-pastel-soft text-pastel-primary transition-all">
               <i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Dashboard
             </button>
-            <button type="button" data-tab="schedule" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="schedule" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="calendar" class="w-4.5 h-4.5"></i> Jadwal Mengajar
             </button>
-            <button type="button" data-tab="tasks" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="tasks" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="check-square" class="w-4.5 h-4.5"></i> Task Manager
             </button>
-            <button type="button" data-tab="notes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="notes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="file-text" class="w-4.5 h-4.5"></i> Quick Notes
             </button>
           </div>
         </div>
 
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">TEACHING TOOLS</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3 uppercase">Teaching Tools</p>
           <div class="space-y-1">
-            <button type="button" data-tab="planner" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="planner" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="book-open" class="w-4.5 h-4.5"></i> Teaching Planner
             </button>
-            <button type="button" data-tab="library" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="library" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="library" class="w-4.5 h-4.5"></i> Digital Library
             </button>
           </div>
         </div>
 
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">PERSONAL SPACE</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3 uppercase">Personal Space</p>
           <div class="space-y-1">
-            <button type="button" data-tab="habits" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+            <button type="button" data-tab="habits" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50 transition-all">
               <i data-lucide="award" class="w-4.5 h-4.5"></i> Habit Tracker
             </button>
           </div>
         </div>
-
-        <!-- FIREBASE CONFIG CHECK & STATUS -->
-        <div class="pt-4 border-t border-slate-100">
-          <div class="px-3 py-2.5 bg-slate-50 rounded-xl text-xs space-y-1.5">
-            <div class="flex items-center justify-between font-bold text-slate-700">
-              <span>Cloud Status</span>
-              <span id="sync-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            </div>
-            <p id="sync-text" class="text-[11px] text-slate-500">Cloud Firestore Connected</p>
-          </div>
-        </div>
       </nav>
+
+      <!-- CLOUD SYNC STATUS FOOTER -->
+      <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+        <div class="px-3 py-2 bg-white border border-slate-200/60 rounded-xl text-xs space-y-1 shadow-2xs">
+          <div class="flex items-center justify-between font-bold text-slate-700">
+            <span>Status Sinkronisasi</span>
+            <span id="sync-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          </div>
+          <p id="sync-text" class="text-[11px] text-slate-500">Live Cloud Firestore Active</p>
+        </div>
+      </div>
     </aside>
 
     <!-- BACKDROP MOBILE -->
-    <div id="backdrop" class="fixed inset-0 bg-slate-900/20 z-30 hidden md:hidden"></div>
+    <div id="backdrop" class="fixed inset-0 bg-slate-900/20 z-30 hidden md:hidden backdrop-blur-xs"></div>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-y-auto">
+    <main class="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-y-auto max-w-full">
       
       <!-- HERO BANNER WELCOME -->
-      <div class="hero-banner rounded-2xl p-6 md:p-8 text-white shadow-sm mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div class="hero-banner rounded-2xl p-6 md:p-8 text-white shadow-sm mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-md text-xs font-semibold">Dashboard Pengajar</span>
-            <span id="sync-status-desktop" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/30 text-emerald-100 backdrop-blur-md border border-emerald-400/30">
-              <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span> Terhubung Live Sync
+            <span id="sync-status-desktop" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/30 text-white backdrop-blur-md border border-white/20">
+              <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span> Sinkron Real-Time Active
             </span>
           </div>
-          <h2 class="text-2xl md:text-3xl font-bold">Selamat Datang, Bu Hanifah</h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Selamat Datang, Bu Hanifah</h2>
           <p id="current-date" class="text-xs md:text-sm font-medium text-white/90 mt-1">Memuat tanggal...</p>
         </div>
 
         <div class="flex items-center gap-3 w-full md:w-auto">
-          <div class="bg-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm w-full md:w-64">
+          <div class="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl flex items-center gap-2.5 shadow-sm w-full md:w-64 border border-white/40">
             <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
             <input type="text" placeholder="Cari kegiatan atau tugas..." class="bg-transparent border-none text-xs font-medium outline-none w-full text-slate-800 placeholder:text-slate-400">
           </div>
@@ -190,14 +190,14 @@
               </div>
               <span id="day-badge" class="bg-pastel-soft text-pastel-primary px-3 py-1 rounded-md text-xs font-bold">Hari Ini</span>
             </div>
-            <div id="today-schedule-list" class="space-y-3">
-              <div class="text-center py-8 text-slate-400 text-xs">Menyinkronkan data Cloud Firestore...</div>
+            <div id="today-schedule-list" class="space-y-3 min-h-[160px]">
+              <!-- Dynamically Populated -->
             </div>
           </div>
 
           <!-- SIDE WIDGETS -->
           <div class="space-y-6">
-            <div class="bg-amber-50/80 border border-amber-200/60 rounded-2xl p-5">
+            <div class="bg-amber-50/90 border border-amber-200/80 rounded-2xl p-5 shadow-2xs">
               <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-2">Catatan Pengingat</h4>
               <p class="text-xs text-amber-900 leading-relaxed font-medium">
                 "Pendidikan bukan sekadar mengisi wadah, melainkan menyalakan api pengetahuan."
@@ -212,11 +212,11 @@
               
               <form id="add-task-form-dash" class="flex gap-2">
                 <input id="task-input-dash" type="text" placeholder="Tambah tugas baru..." class="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none focus:border-pastel-primary font-medium">
-                <button type="submit" class="bg-pastel-primary text-white px-3 py-2 rounded-xl text-xs font-bold">Tambah</button>
+                <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-colors">Tambah</button>
               </form>
 
-              <div id="tasks-preview-list" class="space-y-2">
-                <div class="text-center py-4 text-slate-400 text-xs">Memuat tugas...</div>
+              <div id="tasks-preview-list" class="space-y-2 max-h-[220px] overflow-y-auto">
+                <!-- Dynamically Populated -->
               </div>
             </div>
           </div>
@@ -227,12 +227,12 @@
       <!-- TAB 2: JADWAL MENGAJAR LENGKAP -->
       <section id="view-schedule" class="tab-view hidden space-y-6">
         <div class="card-clean rounded-2xl p-6 space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-2">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-3">
             <div>
               <h3 class="font-bold text-lg text-slate-800">Jadwal Mengajar Pekanan</h3>
-              <p class="text-xs text-slate-500 font-medium">Bahasa Indonesia, Seni, dan Perpustakaan • SD Islam Makarima</p>
+              <p class="text-xs text-slate-500 font-medium">Bahasa Indonesia, Seni, & Perpustakaan • SD Islam Makarima</p>
             </div>
-            <button id="btn-add-schedule" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+            <button id="btn-add-schedule" type="button" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors">
               <i data-lucide="plus" class="w-4 h-4"></i> Tambah Slot Jadwal
             </button>
           </div>
@@ -249,7 +249,7 @@
                 </tr>
               </thead>
               <tbody id="full-schedule-table-body" class="text-xs font-medium">
-                <tr><td colspan="6" class="text-center py-8 text-slate-400">Menyinkronkan jadwal dari Firestore...</td></tr>
+                <!-- Dynamically Populated -->
               </tbody>
             </table>
           </div>
@@ -262,10 +262,10 @@
           <h3 class="font-bold text-lg text-slate-800">Daftar Tugas & Administrasi</h3>
           <form id="add-task-form-main" class="flex gap-2">
             <input id="task-input-main" type="text" placeholder="Tulis rencana atau tugas baru..." class="flex-1 border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pastel-primary font-medium">
-            <button type="submit" class="bg-pastel-primary text-white font-bold px-5 py-2.5 rounded-xl text-sm">Simpan</button>
+            <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">Simpan</button>
           </form>
           <div id="tasks-full-list" class="space-y-2 pt-2">
-            <div class="text-center py-6 text-slate-400 text-xs">Memuat data tugas...</div>
+            <!-- Dynamically Populated -->
           </div>
         </div>
       </section>
@@ -273,13 +273,13 @@
       <!-- TAB 4: QUICK NOTES -->
       <section id="view-notes" class="tab-view hidden space-y-6">
         <div class="flex justify-between items-center">
-          <h3 class="font-bold text-lg text-slate-800">Catatan Tempel (Sticky Notes)</h3>
-          <button id="btn-add-note" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm">
+          <h3 class="font-bold text-lg text-slate-800">Catatan Tempel (Quick Notes)</h3>
+          <button id="btn-add-note" type="button" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors">
             <i data-lucide="plus" class="w-4 h-4"></i> Catatan Baru
           </button>
         </div>
         <div id="notes-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          <div class="col-span-full text-center py-8 text-slate-400 text-xs">Memuat catatan tempel...</div>
+          <!-- Dynamically Populated -->
         </div>
       </section>
 
@@ -291,12 +291,12 @@
               <h3 class="font-bold text-lg text-slate-800">Teaching Planner (RPP & Modul Ajar)</h3>
               <p class="text-xs text-slate-500 font-medium">Perencanaan modul pembelajaran harian Bu Hanifah</p>
             </div>
-            <button id="btn-add-planner" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+            <button id="btn-add-planner" type="button" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors">
               <i data-lucide="plus" class="w-4 h-4"></i> Rencana Baru
             </button>
           </div>
           <div id="planner-list" class="space-y-3">
-            <div class="text-center py-6 text-slate-400 text-xs">Memuat RPP & modul ajar...</div>
+            <!-- Dynamically Populated -->
           </div>
         </div>
       </section>
@@ -309,12 +309,12 @@
               <h3 class="font-bold text-lg text-slate-800">Digital Library & Buku Peminjaman</h3>
               <p class="text-xs text-slate-500 font-medium">Katalog koleksi buku dan transaksi perpustakaan</p>
             </div>
-            <button id="btn-add-book" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+            <button id="btn-add-book" type="button" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors">
               <i data-lucide="plus" class="w-4 h-4"></i> Tambah Buku
             </button>
           </div>
           <div id="library-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="col-span-full text-center py-6 text-slate-400 text-xs">Memuat buku...</div>
+            <!-- Dynamically Populated -->
           </div>
         </div>
       </section>
@@ -323,13 +323,16 @@
       <section id="view-habits" class="tab-view hidden space-y-6">
         <div class="card-clean rounded-2xl p-6 space-y-4">
           <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-            <h3 class="font-bold text-lg text-slate-800">Habit Tracker Pengajar</h3>
-            <button id="btn-add-habit" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
+            <div>
+              <h3 class="font-bold text-lg text-slate-800">Habit Tracker Pengajar</h3>
+              <p class="text-xs text-slate-500 font-medium">Pantau kebiasaan dan rutinitas harian</p>
+            </div>
+            <button id="btn-add-habit" type="button" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors">
               <i data-lucide="plus" class="w-4 h-4"></i> Habit Baru
             </button>
           </div>
           <div class="space-y-3" id="habit-list">
-            <div class="text-center py-6 text-slate-400 text-xs">Memuat habit tracker...</div>
+            <!-- Dynamically Populated -->
           </div>
         </div>
       </section>
@@ -342,7 +345,7 @@
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
         <h3 id="modal-title" class="font-bold text-base text-slate-800">Edit Slot Jadwal</h3>
-        <button id="close-modal-btn" type="button" class="text-slate-400 hover:text-slate-600">
+        <button id="close-modal-btn" type="button" class="text-slate-400 hover:text-slate-600 p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -379,9 +382,9 @@
           </select>
         </div>
         <div class="flex justify-end gap-2 pt-3">
-          <button type="button" id="btn-delete-schedule" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold mr-auto hidden">Hapus Slot</button>
-          <button type="button" id="btn-cancel-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold">Simpan Perubahan</button>
+          <button type="button" id="btn-delete-schedule" class="bg-rose-50 text-rose-600 border border-rose-200 px-4 py-2 rounded-xl text-xs font-bold mr-auto hidden hover:bg-rose-100">Hapus Slot</button>
+          <button type="button" id="btn-cancel-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-200">Batal</button>
+          <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors">Simpan Perubahan</button>
         </div>
       </form>
     </div>
@@ -392,7 +395,7 @@
     <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
         <h3 class="font-bold text-base text-slate-800">Edit Judul Tugas</h3>
-        <button id="close-task-modal-btn" type="button" class="text-slate-400 hover:text-slate-600">
+        <button id="close-task-modal-btn" type="button" class="text-slate-400 hover:text-slate-600 p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -403,14 +406,86 @@
           <input type="text" id="edit-task-title" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
         </div>
         <div class="flex justify-end gap-2 pt-3">
-          <button type="button" id="btn-cancel-task-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold">Simpan</button>
+          <button type="button" id="btn-cancel-task-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-200">Batal</button>
+          <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors">Simpan</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- FIREBASE MODULAR SDK v10 INTEGRATION -->
+  <!-- MODAL EDIT TEACHING PLANNER -->
+  <div id="planner-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 id="planner-modal-title" class="font-bold text-base text-slate-800">Form Rencana Pembelajaran (RPP)</h3>
+        <button id="close-planner-modal-btn" type="button" class="text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form id="planner-form" class="space-y-3">
+        <input type="hidden" id="planner-edit-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Judul RPP / Modul</label>
+          <input type="text" id="planner-title" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Kelas</label>
+          <input type="text" id="planner-class" placeholder="Contoh: Kelas 4B" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Topik Pembelajaran</label>
+          <input type="text" id="planner-topic" placeholder="Contoh: Membaca dan Mengamati Paragraf" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Tanggal Pelaksanaan</label>
+          <input type="date" id="planner-date" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div class="flex justify-end gap-2 pt-3">
+          <button type="button" id="btn-cancel-planner-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-200">Batal</button>
+          <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors">Simpan Rencana</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT LIBRARY -->
+  <div id="library-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 id="library-modal-title" class="font-bold text-base text-slate-800">Form Koleksi Buku</h3>
+        <button id="close-library-modal-btn" type="button" class="text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form id="library-form" class="space-y-3">
+        <input type="hidden" id="library-edit-id">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Judul Buku</label>
+          <input type="text" id="library-title" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Penulis / Pengarang</label>
+          <input type="text" id="library-author" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary" required>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Status Peminjaman</label>
+          <select id="library-status" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium outline-none focus:border-pastel-primary">
+            <option value="Tersedia">Tersedia</option>
+            <option value="Dipinjam 4A">Dipinjam 4A</option>
+            <option value="Dipinjam 4B">Dipinjam 4B</option>
+            <option value="Dipinjam Kelas 5">Dipinjam Kelas 5</option>
+            <option value="Dipinjam Kelas 6">Dipinjam Kelas 6</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2 pt-3">
+          <button type="button" id="btn-cancel-library-modal" class="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-200">Batal</button>
+          <button type="submit" class="bg-pastel-primary hover:bg-pastel-primaryHover text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors">Simpan Buku</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FIREBASE MODULAR SDK INTEGRATION WITH INSTANT FALLBACK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { 
@@ -424,8 +499,6 @@
       collection, 
       doc, 
       setDoc, 
-      getDoc, 
-      getDocs, 
       addDoc, 
       updateDoc, 
       deleteDoc, 
@@ -433,7 +506,7 @@
       serverTimestamp 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Global Config & App ID Fallback
+    // Firebase Config
     const firebaseConfig = typeof __firebase_config !== 'undefined' 
       ? JSON.parse(__firebase_config) 
       : {
@@ -447,75 +520,110 @@
 
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'teacher-hub-hanifah';
 
-    // Inisialisasi Firebase
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     let currentUser = null;
 
-    // DATA AWAL JADWAL MENGAJAR (SD ISLAM MAKARIMA)
+    // DEFAULT INITIAL DATA (SD Islam Makarima)
     const INITIAL_SCHEDULE = [
-      { day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Senin", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
-      { day: "Senin", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
-      { day: "Senin", timeSlot: "09.45–10.20", activity: "PERPUS (5)", category: "perpus" },
-      { day: "Senin", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Senin", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Senin", timeSlot: "11.10–11.45", activity: "5 & PERPUS (2B)", category: "perpus" },
-      { day: "Senin", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Senin", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Senin", timeSlot: "13.00–13.35", activity: "6", category: "kelas" },
-      { day: "Senin", timeSlot: "13.35–14.00", activity: "PERPUS (3C)", category: "perpus" },
-      { day: "Senin", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Selasa", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Selasa", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & PERPUS (2A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "09.10–09.45", activity: "4A", category: "kelas" },
-      { day: "Selasa", timeSlot: "09.45–10.20", activity: "PERPUS (4A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Selasa", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & PERPUS (1A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Selasa", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & PERPUS (2C)", category: "perpus" },
-      { day: "Selasa", timeSlot: "13.35–14.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Rabu", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Rabu", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Rabu", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Rabu", timeSlot: "11.10–11.45", activity: "4A", category: "kelas" },
-      { day: "Rabu", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Rabu", timeSlot: "12.25–13.00", activity: "4A", category: "kelas" },
-      { day: "Rabu", timeSlot: "13.00–13.35", activity: "PERPUS (4B)", category: "perpus" },
-      { day: "Rabu", timeSlot: "13.35–14.00", activity: "4B", category: "kelas" },
-      { day: "Rabu", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
-      { day: "Kamis", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Kamis", timeSlot: "07.35–08.35", activity: "PRAMUKA", category: "kegiatan_khusus" },
-      { day: "Kamis", timeSlot: "08.35–09.10", activity: "4A & PERPUS (3B)", category: "perpus" },
-      { day: "Kamis", timeSlot: "09.45–10.20", activity: "TKA LITERASI", category: "kegiatan_khusus" },
-      { day: "Kamis", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Kamis", timeSlot: "10.35–11.10", activity: "SENI (4A)", category: "kelas" },
-      { day: "Kamis", timeSlot: "11.10–11.45", activity: "SENI (4A)", category: "kelas" },
-      { day: "Kamis", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Kamis", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Kamis", timeSlot: "13.00–13.35", activity: "6 & PERPUS (1B)", category: "perpus" },
-      { day: "Kamis", timeSlot: "14.00–14.30", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Jumat", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
-      { day: "Jumat", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
-      { day: "Jumat", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
-      { day: "Jumat", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
-      { day: "Jumat", timeSlot: "09.45–10.20", activity: "5 & PERPUS (3A)", category: "perpus" },
-      { day: "Jumat", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
-      { day: "Jumat", timeSlot: "10.35–11.10", activity: "5 & PERPUS (1C)", category: "perpus" },
-      { day: "Jumat", timeSlot: "11.10–12.25", activity: "ISHOMA", category: "istirahat" },
-      { day: "Jumat", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Jumat", timeSlot: "13.00–14.00", activity: "EKSKUL / TKA LITERASI", category: "kegiatan_khusus" },
-      { day: "Jumat", timeSlot: "14.00–14.30", activity: "PULANG: 14.30 WIB", category: "istirahat" }
+      { id: 'sc_1', day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: 'sc_2', day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: 'sc_3', day: "Senin", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
+      { id: 'sc_4', day: "Senin", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
+      { id: 'sc_5', day: "Senin", timeSlot: "09.45–10.20", activity: "PERPUS (5)", category: "perpus" },
+      { id: 'sc_6', day: "Senin", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: 'sc_7', day: "Senin", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
+      { id: 'sc_8', day: "Senin", timeSlot: "11.10–11.45", activity: "5 & PERPUS (2B)", category: "perpus" },
+      { id: 'sc_9', day: "Senin", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: 'sc_10', day: "Senin", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: 'sc_11', day: "Senin", timeSlot: "13.00–13.35", activity: "6", category: "kelas" },
+      { id: 'sc_12', day: "Senin", timeSlot: "13.35–14.00", activity: "PERPUS (3C)", category: "perpus" },
+      { id: 'sc_13', day: "Senin", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: 'sc_14', day: "Selasa", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: 'sc_15', day: "Selasa", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: 'sc_16', day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & PERPUS (2A)", category: "perpus" },
+      { id: 'sc_17', day: "Selasa", timeSlot: "09.10–09.45", activity: "4A", category: "kelas" },
+      { id: 'sc_18', day: "Selasa", timeSlot: "09.45–10.20", activity: "PERPUS (4A)", category: "perpus" },
+      { id: 'sc_19', day: "Selasa", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: 'sc_20', day: "Selasa", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
+      { id: 'sc_21', day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & PERPUS (1A)", category: "perpus" },
+      { id: 'sc_22', day: "Selasa", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: 'sc_23', day: "Selasa", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: 'sc_24', day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & PERPUS (2C)", category: "perpus" },
+      { id: 'sc_25', day: "Selasa", timeSlot: "13.35–14.00", activity: "6", category: "kelas" },
+      { id: 'sc_26', day: "Selasa", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: 'sc_27', day: "Rabu", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: 'sc_28', day: "Rabu", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: 'sc_29', day: "Rabu", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: 'sc_30', day: "Rabu", timeSlot: "11.10–11.45", activity: "4A", category: "kelas" },
+      { id: 'sc_31', day: "Rabu", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: 'sc_32', day: "Rabu", timeSlot: "12.25–13.00", activity: "4A", category: "kelas" },
+      { id: 'sc_33', day: "Rabu", timeSlot: "13.00–13.35", activity: "PERPUS (4B)", category: "perpus" },
+      { id: 'sc_34', day: "Rabu", timeSlot: "13.35–14.00", activity: "4B", category: "kelas" },
+      { id: 'sc_35', day: "Rabu", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { id: 'sc_36', day: "Kamis", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: 'sc_37', day: "Kamis", timeSlot: "07.35–08.35", activity: "PRAMUKA", category: "kegiatan_khusus" },
+      { id: 'sc_38', day: "Kamis", timeSlot: "08.35–09.10", activity: "4A & PERPUS (3B)", category: "perpus" },
+      { id: 'sc_39', day: "Kamis", timeSlot: "09.45–10.20", activity: "TKA LITERASI", category: "kegiatan_khusus" },
+      { id: 'sc_40', day: "Kamis", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: 'sc_41', day: "Kamis", timeSlot: "10.35–11.10", activity: "SENI (4A)", category: "kelas" },
+      { id: 'sc_42', day: "Kamis", timeSlot: "11.10–11.45", activity: "SENI (4A)", category: "kelas" },
+      { id: 'sc_43', day: "Kamis", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: 'sc_44', day: "Kamis", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: 'sc_45', day: "Kamis", timeSlot: "13.00–13.35", activity: "6 & PERPUS (1B)", category: "perpus" },
+      { id: 'sc_46', day: "Kamis", timeSlot: "14.00–14.30", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: 'sc_47', day: "Jumat", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { id: 'sc_48', day: "Jumat", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { id: 'sc_49', day: "Jumat", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
+      { id: 'sc_50', day: "Jumat", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
+      { id: 'sc_51', day: "Jumat", timeSlot: "09.45–10.20", activity: "5 & PERPUS (3A)", category: "perpus" },
+      { id: 'sc_52', day: "Jumat", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { id: 'sc_53', day: "Jumat", timeSlot: "10.35–11.10", activity: "5 & PERPUS (1C)", category: "perpus" },
+      { id: 'sc_54', day: "Jumat", timeSlot: "11.10–12.25", activity: "ISHOMA", category: "istirahat" },
+      { id: 'sc_55', day: "Jumat", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { id: 'sc_56', day: "Jumat", timeSlot: "13.00–14.00", activity: "EKSKUL / TKA LITERASI", category: "kegiatan_khusus" },
+      { id: 'sc_57', day: "Jumat", timeSlot: "14.00–14.30", activity: "PULANG: 14.30 WIB", category: "istirahat" }
     ];
 
-    // Helper Badge Style
+    const INITIAL_TASKS = [
+      { id: 'tk_1', title: 'Menyiapkan Modul Pembelajaran Kelas 4B', completed: false },
+      { id: 'tk_2', title: 'Koreksi Lembar Kerja Siswa Bahasa Indonesia', completed: true },
+      { id: 'tk_3', title: 'Rekap Presensi & Tahfidz Pekanan', completed: false }
+    ];
+
+    const INITIAL_NOTES = [
+      { id: 'nt_1', title: 'Pengingat Rapat', content: 'Rapat koordinasi kurikulum hari Kamis jam 13.00 di Ruang Guru.', color: 'bg-pastel-yellow' },
+      { id: 'nt_2', title: 'Bahan Ajar Seni', content: 'Membawa kertas gambar A4 dan pewarna untuk kelas 4A.', color: 'bg-pastel-pink' }
+    ];
+
+    const INITIAL_PLANNERS = [
+      { id: 'pl_1', title: 'Bahasa Indonesia - Teks Deskripsi', class: 'Kelas 4B', date: '2026-10-29', topic: 'Membaca dan Mengamati Paragraf' },
+      { id: 'pl_2', title: 'Seni Rupa - Ragam Hias Nusantara', class: 'Kelas 4A', date: '2026-10-30', topic: 'Membuat Motif Batik Sederhana' }
+    ];
+
+    const INITIAL_BOOKS = [
+      { id: 'bk_1', title: 'Ensiklopedia Sains Anak', author: 'Bambang S.', status: 'Tersedia' },
+      { id: 'bk_2', title: 'Cerita Rakyat Nusantara', author: 'Lilis A.', status: 'Dipinjam 4B' }
+    ];
+
+    const INITIAL_HABITS = [
+      { id: 'hb_1', title: 'Menyiapkan Modul Ajar Pekanan', done: true },
+      { id: 'hb_2', title: 'Dzikir Pagi & Dhuha Bersama Siswa', done: true },
+      { id: 'hb_3', title: 'Pemeriksaan Buku Tugas Siswa', done: false }
+    ];
+
+    // Local Memory State (Populated instantly for 0s UI latency)
+    let localSchedules = [...INITIAL_SCHEDULE];
+    let localTasks = [...INITIAL_TASKS];
+    let localNotes = [...INITIAL_NOTES];
+    let localPlanners = [...INITIAL_PLANNERS];
+    let localBooks = [...INITIAL_BOOKS];
+    let localHabits = [...INITIAL_HABITS];
+
+    // Badge styling
     const getBadgeStyle = (cat) => {
       switch(cat) {
         case 'ibadah': return 'bg-pastel-yellow text-amber-900 border border-amber-200';
@@ -528,10 +636,10 @@
       }
     };
 
-    // Helper Firestore Paths (RULE 1 STRICT PATH COMPLIANCE)
+    // Firestore Path Reference
     const getPublicCollection = (collName) => collection(db, 'artifacts', appId, 'public', 'data', collName);
 
-    // Initial Auth Sign-In
+    // Initial Auth
     async function initAuth() {
       try {
         if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -540,7 +648,7 @@
           await signInAnonymously(auth);
         }
       } catch (err) {
-        console.error("Auth initialization error:", err);
+        console.warn("Auth initialization fallback:", err);
       }
     }
 
@@ -561,131 +669,128 @@
       const syncText = document.getElementById('sync-text');
 
       if (isOnline) {
-        if (desktopBadge) desktopBadge.className = "hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/30 text-emerald-100 backdrop-blur-md border border-emerald-400/30";
+        if (desktopBadge) desktopBadge.className = "hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-emerald-500/30 text-white backdrop-blur-md border border-white/20";
         if (mobileBadge) mobileBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800";
-        if (mobileBadge) mobileBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Online Sync`;
+        if (mobileBadge) mobileBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Online Live`;
         if (syncDot) syncDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
-        if (syncText) syncText.textContent = "Firestore Real-Time Live";
+        if (syncText) syncText.textContent = "Live Cloud Firestore Active";
       } else {
         if (mobileBadge) mobileBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800";
-        if (mobileBadge) mobileBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Offline/Connecting`;
+        if (mobileBadge) mobileBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Off-line Mode`;
         if (syncDot) syncDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500";
-        if (syncText) syncText.textContent = "Menghubungkan...";
+        if (syncText) syncText.textContent = "Offline State Active";
       }
     }
 
-    // STATE LOKAL DARI SNAPSHOT FIRESTORE
-    let localSchedules = [];
-    let localTasks = [];
-    let localNotes = [];
-    let localPlanners = [];
-    let localBooks = [];
-    let localHabits = [];
-
-    // REAL-TIME FIRESTORE LISTENERS
+    // REAL-TIME SNAPSHOT LISTENERS WITH AUTO SEEDING
     function setupRealtimeListeners() {
       if (!currentUser) return;
 
-      // 1. SCHEDULE LISTENER
+      // 1. SCHEDULE
       onSnapshot(getPublicCollection('schedules'), async (snapshot) => {
         if (snapshot.empty) {
-          // Seeding Data Awal jika Firestore kosong
           for (const item of INITIAL_SCHEDULE) {
-            await addDoc(getPublicCollection('schedules'), { ...item, createdAt: serverTimestamp() });
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', item.id), { ...item, createdAt: serverTimestamp() });
           }
         } else {
-          localSchedules = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localSchedules = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderTodaySchedule();
           renderFullScheduleTable();
         }
-      }, err => console.error("Error schedule sync:", err));
+      }, err => console.warn("Schedule sync warning:", err));
 
-      // 2. TASKS LISTENER
+      // 2. TASKS
       onSnapshot(getPublicCollection('tasks'), async (snapshot) => {
         if (snapshot.empty) {
-          await addDoc(getPublicCollection('tasks'), { title: 'Menyiapkan Modul Pembelajaran Kelas 4B', completed: false, createdAt: serverTimestamp() });
-          await addDoc(getPublicCollection('tasks'), { title: 'Koreksi Lembar Kerja Siswa Bahasa Indonesia', completed: true, createdAt: serverTimestamp() });
+          for (const item of INITIAL_TASKS) {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', item.id), { ...item, createdAt: serverTimestamp() });
+          }
         } else {
-          localTasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localTasks = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderTasks();
         }
-      }, err => console.error("Error tasks sync:", err));
+      }, err => console.warn("Tasks sync warning:", err));
 
-      // 3. NOTES LISTENER
+      // 3. NOTES
       onSnapshot(getPublicCollection('notes'), async (snapshot) => {
         if (snapshot.empty) {
-          await addDoc(getPublicCollection('notes'), { title: 'Pengingat Rapat', content: 'Rapat koordinasi kurikulum hari Kamis jam 13.00', color: 'bg-pastel-yellow', createdAt: serverTimestamp() });
+          for (const item of INITIAL_NOTES) {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', item.id), { ...item, createdAt: serverTimestamp() });
+          }
         } else {
-          localNotes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localNotes = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderNotes();
         }
-      }, err => console.error("Error notes sync:", err));
+      }, err => console.warn("Notes sync warning:", err));
 
-      // 4. PLANNER LISTENER
+      // 4. PLANNER
       onSnapshot(getPublicCollection('planners'), async (snapshot) => {
         if (snapshot.empty) {
-          await addDoc(getPublicCollection('planners'), { title: 'Bahasa Indonesia - Teks Deskripsi', class: 'Kelas 4B', date: '2026-10-29', topic: 'Membaca dan Mengamati Paragraf', createdAt: serverTimestamp() });
+          for (const item of INITIAL_PLANNERS) {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'planners', item.id), { ...item, createdAt: serverTimestamp() });
+          }
         } else {
-          localPlanners = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localPlanners = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderPlanners();
         }
-      }, err => console.error("Error planners sync:", err));
+      }, err => console.warn("Planner sync warning:", err));
 
-      // 5. LIBRARY LISTENER
+      // 5. LIBRARY
       onSnapshot(getPublicCollection('library'), async (snapshot) => {
         if (snapshot.empty) {
-          await addDoc(getPublicCollection('library'), { title: 'Ensiklopedia Sains Anak', author: 'Bambang S.', status: 'Tersedia', createdAt: serverTimestamp() });
-          await addDoc(getPublicCollection('library'), { title: 'Cerita Rakyat Nusantara', author: 'Lilis A.', status: 'Dipinjam 4B', createdAt: serverTimestamp() });
+          for (const item of INITIAL_BOOKS) {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'library', item.id), { ...item, createdAt: serverTimestamp() });
+          }
         } else {
-          localBooks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localBooks = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderLibrary();
         }
-      }, err => console.error("Error library sync:", err));
+      }, err => console.warn("Library sync warning:", err));
 
-      // 6. HABITS LISTENER
+      // 6. HABITS
       onSnapshot(getPublicCollection('habits'), async (snapshot) => {
         if (snapshot.empty) {
-          await addDoc(getPublicCollection('habits'), { title: 'Menyiapkan Modul Ajar Pekanan', done: true, createdAt: serverTimestamp() });
-          await addDoc(getPublicCollection('habits'), { title: 'Dzikir Pagi Bersama Siswa', done: true, createdAt: serverTimestamp() });
-          await addDoc(getPublicCollection('habits'), { title: 'Pemeriksaan Buku Tugas Siswa', done: false, createdAt: serverTimestamp() });
+          for (const item of INITIAL_HABITS) {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', item.id), { ...item, createdAt: serverTimestamp() });
+          }
         } else {
-          localHabits = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          localHabits = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
           renderHabits();
         }
-      }, err => console.error("Error habits sync:", err));
+      }, err => console.warn("Habits sync warning:", err));
     }
 
     // -------------------------------------------------------------
-    // RENDER FUNCTIONS & CRUD HANDLERS
+    // UI RENDERING ENGINE & MODAL CRUD HANDLERS
     // -------------------------------------------------------------
 
-    // DATE DISPLAY
+    // Current Date Setup
     const today = new Date();
     const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const currentDayName = dayNames[today.getDay()];
     document.getElementById('current-date').textContent = today.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     document.getElementById('day-badge').textContent = currentDayName;
 
-    // 1. RENDER JADWAL HARI INI
+    // 1. TODAY'S SCHEDULE RENDER
     function renderTodaySchedule() {
       const container = document.getElementById('today-schedule-list');
       const targetDay = (currentDayName === 'Minggu' || currentDayName === 'Sabtu') ? 'Senin' : currentDayName;
       const filtered = localSchedules.filter(s => s.day === targetDay);
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs font-semibold">Tidak ada jadwal mengajar hari ini.</div>`;
+        container.innerHTML = `<div class="text-center py-10 text-slate-400 text-xs font-semibold">Tidak ada slot mengajar untuk hari ${targetDay}.</div>`;
         return;
       }
 
       container.innerHTML = filtered.map(item => `
-        <div class="flex items-center justify-between p-3 rounded-xl ${getBadgeStyle(item.category)} shadow-xs">
+        <div class="flex items-center justify-between p-3.5 rounded-xl ${getBadgeStyle(item.category)} shadow-2xs">
           <div class="flex items-center gap-3">
-            <span class="text-xs font-bold px-2 py-0.5 bg-white/80 rounded">${item.timeSlot}</span>
+            <span class="text-xs font-extrabold px-2.5 py-1 bg-white/90 rounded-md shadow-2xs">${item.timeSlot}</span>
             <span class="font-bold text-xs">${item.activity}</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white/40">${item.category}</span>
-            <button type="button" onclick="openEditModal('${item.id}')" class="p-1 hover:bg-white/60 rounded text-slate-600">
+            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white/50">${item.category}</span>
+            <button type="button" onclick="openEditModal('${item.id}')" class="p-1.5 hover:bg-white/70 rounded-lg text-slate-600 transition-colors">
               <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
             </button>
           </div>
@@ -694,34 +799,34 @@
       lucide.createIcons();
     }
 
-    // 2. RENDER TABEL JADWAL PEKANAN
+    // 2. FULL SCHEDULE TABLE RENDER
     function renderFullScheduleTable() {
       const timeSlots = Array.from(new Set(localSchedules.map(s => s.timeSlot))).sort();
       const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
       const tbody = document.getElementById('full-schedule-table-body');
 
       if (timeSlots.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400">Belum ada data jadwal. Silakan tambah slot baru.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400">Belum ada data jadwal. Silakan klik "Tambah Slot Jadwal".</td></tr>`;
         return;
       }
 
       tbody.innerHTML = timeSlots.map(slot => `
-        <tr class="border-b border-slate-100 hover:bg-slate-50">
-          <td class="p-3 font-semibold text-slate-500 whitespace-nowrap">${slot}</td>
+        <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+          <td class="p-3.5 font-bold text-slate-500 whitespace-nowrap text-center">${slot}</td>
           ${days.map(day => {
             const match = localSchedules.find(s => s.day === day && s.timeSlot === slot);
             return match 
               ? `<td class="p-2 text-center">
-                  <div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center flex items-center justify-between gap-1">
-                    <span class="flex-1">${match.activity}</span>
-                    <button type="button" onclick="openEditModal('${match.id}')" class="p-1 rounded bg-white/60 hover:bg-white text-slate-700">
+                  <div class="p-2.5 rounded-xl ${getBadgeStyle(match.category)} font-bold text-center flex items-center justify-between gap-1 shadow-2xs">
+                    <span class="flex-1 text-center">${match.activity}</span>
+                    <button type="button" onclick="openEditModal('${match.id}')" class="p-1 rounded bg-white/70 hover:bg-white text-slate-700 transition-colors">
                       <i data-lucide="edit-2" class="w-3 h-3"></i>
                     </button>
                   </div>
                 </td>`
               : `<td class="p-2 text-slate-300 text-center">
-                  <button type="button" onclick="openAddModalForSlot('${day}', '${slot}')" class="w-full p-2 border border-dashed border-slate-200 rounded-lg text-[10px] text-slate-400 hover:border-pastel-primary hover:text-pastel-primary">
-                    + Tambah
+                  <button type="button" onclick="openAddModalForSlot('${day}', '${slot}')" class="w-full p-2 border border-dashed border-slate-200 rounded-xl text-[10px] text-slate-400 hover:border-pastel-primary hover:text-pastel-primary transition-all">
+                    + Slot
                   </button>
                 </td>`;
           }).join('')}
@@ -730,7 +835,7 @@
       lucide.createIcons();
     }
 
-    // SCHEDULE MODAL HANDLERS
+    // SCHEDULE MODAL CRUD
     const modal = document.getElementById('schedule-modal');
     const modalTitle = document.getElementById('modal-title');
     const form = document.getElementById('schedule-form');
@@ -753,12 +858,12 @@
 
     window.openAddModalForSlot = function(day, slot) {
       document.getElementById('edit-schedule-id').value = '';
-      document.getElementById('edit-day').value = day;
-      document.getElementById('edit-timeslot').value = slot;
+      document.getElementById('edit-day').value = day || 'Senin';
+      document.getElementById('edit-timeslot').value = slot || '08.35–09.10';
       document.getElementById('edit-activity').value = '';
       document.getElementById('edit-category').value = 'kelas';
 
-      modalTitle.textContent = "Tambah Slot Jadwal";
+      modalTitle.textContent = "Tambah Slot Jadwal Baru";
       deleteBtn.classList.add('hidden');
       modal.classList.remove('hidden');
     };
@@ -769,34 +874,49 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!currentUser) return;
-      
-      const id = document.getElementById('edit-schedule-id').value;
+      const id = document.getElementById('edit-schedule-id').value || 'sc_' + Date.now();
       const data = {
+        id,
         day: document.getElementById('edit-day').value,
         timeSlot: document.getElementById('edit-timeslot').value,
         activity: document.getElementById('edit-activity').value,
         category: document.getElementById('edit-category').value,
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString()
       };
 
-      if (id) {
-        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', id), data);
+      const existingIndex = localSchedules.findIndex(s => s.id === id);
+      if (existingIndex >= 0) {
+        localSchedules[existingIndex] = data;
       } else {
-        await addDoc(getPublicCollection('schedules'), { ...data, createdAt: serverTimestamp() });
+        localSchedules.push(data);
       }
+      renderTodaySchedule();
+      renderFullScheduleTable();
       modal.classList.add('hidden');
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', id), data);
+        } catch(err) { console.warn("Cloud save schedule warning:", err); }
+      }
     });
 
     deleteBtn.addEventListener('click', async () => {
       const id = document.getElementById('edit-schedule-id').value;
-      if (id && currentUser) {
-        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', id));
-        modal.classList.add('hidden');
+      if (!id) return;
+      localSchedules = localSchedules.filter(s => s.id !== id);
+      renderTodaySchedule();
+      renderFullScheduleTable();
+      modal.classList.add('hidden');
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'schedules', id));
+        } catch(err) { console.warn("Cloud delete schedule warning:", err); }
       }
     });
 
-    // 3. RENDER & HANDLERS TASK MANAGER
+    // 3. TASK MANAGER RENDER & CRUD
     const taskModal = document.getElementById('task-modal');
     
     function renderTasks() {
@@ -805,14 +925,14 @@
       const renderList = (containerId) => {
         const el = document.getElementById(containerId);
         if (localTasks.length === 0) {
-          el.innerHTML = `<p class="text-xs text-slate-400 font-medium text-center py-4">Belum ada tugas.</p>`;
+          el.innerHTML = `<p class="text-xs text-slate-400 font-medium text-center py-4">Belum ada tugas tersimpan.</p>`;
           return;
         }
         el.innerHTML = localTasks.map(t => `
-          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/60">
             <div class="flex items-center gap-2.5">
               <input type="checkbox" ${t.completed ? 'checked' : ''} 
-                onchange="toggleTask('${t.id}', ${!t.completed})"
+                onchange="toggleTask('${t.id}')"
                 class="rounded text-pastel-primary focus:ring-0 w-4 h-4 cursor-pointer">
               <span class="text-xs font-semibold ${t.completed ? 'line-through text-slate-400' : 'text-slate-700'}">${t.title}</span>
             </div>
@@ -833,14 +953,28 @@
       lucide.createIcons();
     }
 
-    window.toggleTask = async function(id, completed) {
-      if (!currentUser) return;
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id), { completed, updatedAt: serverTimestamp() });
+    window.toggleTask = async function(id) {
+      const task = localTasks.find(t => t.id === id);
+      if (!task) return;
+      task.completed = !task.completed;
+      renderTasks();
+
+      if (currentUser) {
+        try {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id), { completed: task.completed });
+        } catch(err) { console.warn("Cloud toggle task warning:", err); }
+      }
     };
 
     window.deleteTask = async function(id) {
-      if (!currentUser) return;
-      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id));
+      localTasks = localTasks.filter(t => t.id !== id);
+      renderTasks();
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id));
+        } catch(err) { console.warn("Cloud delete task warning:", err); }
+      }
     };
 
     window.openEditTaskModal = function(id) {
@@ -856,47 +990,57 @@
 
     document.getElementById('task-edit-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!currentUser) return;
       const id = document.getElementById('edit-task-id').value;
       const title = document.getElementById('edit-task-title').value.trim();
       if (!title) return;
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id), { title, updatedAt: serverTimestamp() });
+
+      const task = localTasks.find(t => t.id === id);
+      if (task) task.title = title;
+      renderTasks();
       taskModal.classList.add('hidden');
+
+      if (currentUser) {
+        try {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id), { title });
+        } catch(err) { console.warn("Cloud edit task warning:", err); }
+      }
     });
 
     async function addTask(inputEl) {
       const title = inputEl.value.trim();
-      if (!title || !currentUser) return;
-      await addDoc(getPublicCollection('tasks'), { title, completed: false, createdAt: serverTimestamp() });
+      if (!title) return;
+      const id = 'tk_' + Date.now();
+      const newTask = { id, title, completed: false };
+      localTasks.push(newTask);
       inputEl.value = '';
+      renderTasks();
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id), { ...newTask, createdAt: serverTimestamp() });
+        } catch(err) { console.warn("Cloud add task warning:", err); }
+      }
     }
 
-    document.getElementById('add-task-form-dash').addEventListener('submit', (e) => {
-      e.preventDefault();
-      addTask(document.getElementById('task-input-dash'));
-    });
+    document.getElementById('add-task-form-dash').addEventListener('submit', (e) => { e.preventDefault(); addTask(document.getElementById('task-input-dash')); });
+    document.getElementById('add-task-form-main').addEventListener('submit', (e) => { e.preventDefault(); addTask(document.getElementById('task-input-main')); });
 
-    document.getElementById('add-task-form-main').addEventListener('submit', (e) => {
-      e.preventDefault();
-      addTask(document.getElementById('task-input-main'));
-    });
-
-    // 4. RENDER & HANDLERS QUICK NOTES
+    // 4. QUICK NOTES RENDER & CRUD
     function renderNotes() {
       const grid = document.getElementById('notes-grid');
       if (localNotes.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">Belum ada catatan. Klik tombol di atas untuk membuat catatan baru.</div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-xs">Belum ada catatan tempel. Klik "Catatan Baru" untuk membuat.</div>`;
         return;
       }
       grid.innerHTML = localNotes.map(n => `
-        <div class="${n.color || 'bg-pastel-yellow'} p-4 rounded-xl border border-black/5 space-y-2 relative group">
+        <div class="${n.color || 'bg-pastel-yellow'} p-4 rounded-2xl border border-black/5 space-y-2 relative group shadow-2xs">
           <input type="text" value="${n.title || ''}" placeholder="Judul Catatan..." 
             onchange="updateNoteContent('${n.id}', this.value, null)"
-            class="bg-transparent font-bold text-xs text-slate-800 outline-none w-full placeholder:text-slate-500">
+            class="bg-transparent font-bold text-xs text-slate-800 outline-none w-full placeholder:text-slate-500 pr-6">
           <textarea placeholder="Tulis rincian catatan di sini..." 
             onchange="updateNoteContent('${n.id}', null, this.value)"
             class="bg-transparent text-xs font-medium text-slate-700 outline-none w-full resize-none h-24 placeholder:text-slate-400">${n.content || ''}</textarea>
-          <button type="button" onclick="deleteNote('${n.id}')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-600">
+          <button type="button" onclick="deleteNote('${n.id}')" class="absolute top-3 right-3 text-slate-400 hover:text-rose-600 p-1">
             <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -905,117 +1049,220 @@
     }
 
     window.updateNoteContent = async function(id, title, content) {
-      if (!currentUser) return;
-      const updates = { updatedAt: serverTimestamp() };
-      if (title !== null) updates.title = title;
-      if (content !== null) updates.content = content;
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', id), updates);
+      const note = localNotes.find(n => n.id === id);
+      if (!note) return;
+      if (title !== null) note.title = title;
+      if (content !== null) note.content = content;
+
+      if (currentUser) {
+        try {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', id), { title: note.title, content: note.content });
+        } catch(err) { console.warn("Cloud note update warning:", err); }
+      }
     };
 
     window.deleteNote = async function(id) {
-      if (!currentUser) return;
-      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', id));
+      localNotes = localNotes.filter(n => n.id !== id);
+      renderNotes();
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', id));
+        } catch(err) { console.warn("Cloud note delete warning:", err); }
+      }
     };
 
     document.getElementById('btn-add-note').addEventListener('click', async () => {
-      if (!currentUser) return;
       const colors = ['bg-pastel-yellow', 'bg-pastel-pink', 'bg-pastel-lavender', 'bg-pastel-green'];
       const color = colors[Math.floor(Math.random() * colors.length)];
-      await addDoc(getPublicCollection('notes'), { title: '', content: '', color, createdAt: serverTimestamp() });
+      const id = 'nt_' + Date.now();
+      const newNote = { id, title: 'Catatan Baru', content: '', color };
+      localNotes.push(newNote);
+      renderNotes();
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'notes', id), { ...newNote, createdAt: serverTimestamp() });
+        } catch(err) { console.warn("Cloud add note warning:", err); }
+      }
     });
 
-    // 5. RENDER & HANDLERS TEACHING PLANNER
+    // 5. TEACHING PLANNER RENDER & MODAL CRUD
+    const plannerModal = document.getElementById('planner-modal');
+    const plannerForm = document.getElementById('planner-form');
+
     function renderPlanners() {
       const container = document.getElementById('planner-list');
       if (localPlanners.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">Belum ada RPP / Modul Ajar.</div>`;
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">Belum ada RPP / Modul Ajar tersimpan.</div>`;
         return;
       }
       container.innerHTML = localPlanners.map(p => `
-        <div class="p-4 rounded-xl border border-slate-100 bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div class="p-4 rounded-xl border border-slate-200/70 bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 shadow-2xs">
           <div>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-pastel-soft text-pastel-primary">${p.class || 'Umum'}</span>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-pastel-soft text-pastel-primary border border-pastel-sky">${p.class || 'Kelas 4B'}</span>
             <h4 class="font-bold text-sm text-slate-800 mt-1">${p.title}</h4>
             <p class="text-xs text-slate-500">Topik: ${p.topic || '-'} • Tanggal: ${p.date || '-'}</p>
           </div>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="editPlanner('${p.id}')" class="text-xs font-bold text-pastel-primary bg-pastel-soft px-3 py-1.5 rounded-lg">Edit Rencana</button>
-            <button type="button" onclick="deletePlanner('${p.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 px-3 py-1.5 rounded-lg">Hapus</button>
+            <button type="button" onclick="openEditPlannerModal('${p.id}')" class="text-xs font-bold text-pastel-primary bg-pastel-soft px-3 py-1.5 rounded-xl hover:bg-sky-100 transition-colors">Edit</button>
+            <button type="button" onclick="deletePlanner('${p.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 px-3 py-1.5 rounded-xl hover:bg-rose-100 transition-colors">Hapus</button>
           </div>
         </div>
       `).join('');
     }
 
-    window.editPlanner = async function(id) {
+    window.openEditPlannerModal = function(id) {
       const p = localPlanners.find(item => item.id === id);
       if (!p) return;
-      const title = prompt("Edit Judul RPP:", p.title);
-      if (!title || !currentUser) return;
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'planners', id), { title, updatedAt: serverTimestamp() });
+      document.getElementById('planner-edit-id').value = p.id;
+      document.getElementById('planner-title').value = p.title;
+      document.getElementById('planner-class').value = p.class;
+      document.getElementById('planner-topic').value = p.topic;
+      document.getElementById('planner-date').value = p.date;
+      document.getElementById('planner-modal-title').textContent = "Edit Rencana Pembelajaran (RPP)";
+      plannerModal.classList.remove('hidden');
     };
 
-    window.deletePlanner = async function(id) {
-      if (!currentUser) return;
-      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'planners', id));
-    };
-
-    document.getElementById('btn-add-planner').addEventListener('click', async () => {
-      const title = prompt("Masukkan Judul RPP / Modul Ajar Baru:");
-      if (!title || !currentUser) return;
-      await addDoc(getPublicCollection('planners'), {
-        title,
-        class: 'Kelas 4B',
-        date: new Date().toISOString().split('T')[0],
-        topic: 'Materi Pembelajaran Baru',
-        createdAt: serverTimestamp()
-      });
+    document.getElementById('btn-add-planner').addEventListener('click', () => {
+      document.getElementById('planner-edit-id').value = '';
+      document.getElementById('planner-title').value = '';
+      document.getElementById('planner-class').value = 'Kelas 4B';
+      document.getElementById('planner-topic').value = '';
+      document.getElementById('planner-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('planner-modal-title').textContent = "Tambah Rencana Pembelajaran (RPP)";
+      plannerModal.classList.remove('hidden');
     });
 
-    // 6. RENDER & HANDLERS DIGITAL LIBRARY
+    document.getElementById('close-planner-modal-btn').addEventListener('click', () => plannerModal.classList.add('hidden'));
+    document.getElementById('btn-cancel-planner-modal').addEventListener('click', () => plannerModal.classList.add('hidden'));
+
+    plannerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('planner-edit-id').value || 'pl_' + Date.now();
+      const data = {
+        id,
+        title: document.getElementById('planner-title').value.trim(),
+        class: document.getElementById('planner-class').value.trim(),
+        topic: document.getElementById('planner-topic').value.trim(),
+        date: document.getElementById('planner-date').value,
+        updatedAt: new Date().toISOString()
+      };
+
+      const existingIndex = localPlanners.findIndex(p => p.id === id);
+      if (existingIndex >= 0) {
+        localPlanners[existingIndex] = data;
+      } else {
+        localPlanners.push(data);
+      }
+      renderPlanners();
+      plannerModal.classList.add('hidden');
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'planners', id), data);
+        } catch(err) { console.warn("Cloud save planner warning:", err); }
+      }
+    });
+
+    window.deletePlanner = async function(id) {
+      localPlanners = localPlanners.filter(p => p.id !== id);
+      renderPlanners();
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'planners', id));
+        } catch(err) { console.warn("Cloud delete planner warning:", err); }
+      }
+    };
+
+    // 6. DIGITAL LIBRARY RENDER & MODAL CRUD
+    const libraryModal = document.getElementById('library-modal');
+    const libraryForm = document.getElementById('library-form');
+
     function renderLibrary() {
       const container = document.getElementById('library-list');
       if (localBooks.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center py-6 text-slate-400 text-xs">Belum ada buku terdaftar.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center py-6 text-slate-400 text-xs">Belum ada koleksi buku terdaftar.</div>`;
         return;
       }
       container.innerHTML = localBooks.map(b => `
-        <div class="p-4 rounded-xl border border-slate-100 bg-white flex justify-between items-center">
+        <div class="p-4 rounded-xl border border-slate-200/70 bg-white flex justify-between items-center shadow-2xs">
           <div>
             <h4 class="font-bold text-sm text-slate-800">${b.title}</h4>
             <p class="text-xs text-slate-500">Penulis: ${b.author}</p>
-            <span class="inline-block mt-2 text-[10px] font-bold px-2.5 py-0.5 rounded ${b.status === 'Tersedia' ? 'bg-pastel-green text-emerald-800' : 'bg-pastel-pink text-pink-900'}">${b.status}</span>
+            <span class="inline-block mt-2 text-[10px] font-bold px-2.5 py-0.5 rounded-md ${b.status === 'Tersedia' ? 'bg-pastel-green text-emerald-800' : 'bg-pastel-pink text-pink-900'}">${b.status}</span>
           </div>
-          <div class="flex flex-col gap-1">
-            <button type="button" onclick="toggleBookStatus('${b.id}', '${b.status}')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg">Ubah Status</button>
-            <button type="button" onclick="deleteBook('${b.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 px-2.5 py-1 rounded-lg">Hapus</button>
+          <div class="flex flex-col gap-1.5">
+            <button type="button" onclick="openEditLibraryModal('${b.id}')" class="text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded-lg transition-colors">Edit</button>
+            <button type="button" onclick="deleteBook('${b.id}')" class="text-xs font-bold text-rose-500 bg-rose-50 hover:bg-rose-100 px-3 py-1 rounded-lg transition-colors">Hapus</button>
           </div>
         </div>
       `).join('');
     }
 
-    window.toggleBookStatus = async function(id, currentStatus) {
-      if (!currentUser) return;
-      const newStatus = currentStatus === 'Tersedia' ? 'Dipinjam 4B' : 'Tersedia';
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'library', id), { status: newStatus, updatedAt: serverTimestamp() });
+    window.openEditLibraryModal = function(id) {
+      const b = localBooks.find(item => item.id === id);
+      if (!b) return;
+      document.getElementById('library-edit-id').value = b.id;
+      document.getElementById('library-title').value = b.title;
+      document.getElementById('library-author').value = b.author;
+      document.getElementById('library-status').value = b.status;
+      document.getElementById('library-modal-title').textContent = "Edit Data Buku";
+      libraryModal.classList.remove('hidden');
     };
 
-    window.deleteBook = async function(id) {
-      if (!currentUser) return;
-      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'library', id));
-    };
-
-    document.getElementById('btn-add-book').addEventListener('click', async () => {
-      const title = prompt("Judul Buku Baru:");
-      if (!title || !currentUser) return;
-      await addDoc(getPublicCollection('library'), {
-        title,
-        author: 'Penulis Umum',
-        status: 'Tersedia',
-        createdAt: serverTimestamp()
-      });
+    document.getElementById('btn-add-book').addEventListener('click', () => {
+      document.getElementById('library-edit-id').value = '';
+      document.getElementById('library-title').value = '';
+      document.getElementById('library-author').value = '';
+      document.getElementById('library-status').value = 'Tersedia';
+      document.getElementById('library-modal-title').textContent = "Tambah Koleksi Buku";
+      libraryModal.classList.remove('hidden');
     });
 
-    // 7. RENDER & HANDLERS HABIT TRACKER
+    document.getElementById('close-library-modal-btn').addEventListener('click', () => libraryModal.classList.add('hidden'));
+    document.getElementById('btn-cancel-library-modal').addEventListener('click', () => libraryModal.classList.add('hidden'));
+
+    libraryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('library-edit-id').value || 'bk_' + Date.now();
+      const data = {
+        id,
+        title: document.getElementById('library-title').value.trim(),
+        author: document.getElementById('library-author').value.trim(),
+        status: document.getElementById('library-status').value,
+        updatedAt: new Date().toISOString()
+      };
+
+      const existingIndex = localBooks.findIndex(b => b.id === id);
+      if (existingIndex >= 0) {
+        localBooks[existingIndex] = data;
+      } else {
+        localBooks.push(data);
+      }
+      renderLibrary();
+      libraryModal.classList.add('hidden');
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'library', id), data);
+        } catch(err) { console.warn("Cloud save book warning:", err); }
+      }
+    });
+
+    window.deleteBook = async function(id) {
+      localBooks = localBooks.filter(b => b.id !== id);
+      renderLibrary();
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'library', id));
+        } catch(err) { console.warn("Cloud delete book warning:", err); }
+      }
+    };
+
+    // 7. HABIT TRACKER RENDER & CRUD
     function renderHabits() {
       const container = document.getElementById('habit-list');
       if (localHabits.length === 0) {
@@ -1023,10 +1270,10 @@
         return;
       }
       container.innerHTML = localHabits.map(h => `
-        <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-white">
+        <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/70 bg-white shadow-2xs">
           <span class="text-xs font-semibold text-slate-700">${h.title}</span>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="toggleHabit('${h.id}', ${!h.done})" class="text-xs font-bold px-3 py-1 rounded-md ${h.done ? 'bg-pastel-green text-emerald-800' : 'bg-slate-100 text-slate-400'}">
+            <button type="button" onclick="toggleHabit('${h.id}')" class="text-xs font-bold px-3 py-1 rounded-lg transition-colors ${h.done ? 'bg-pastel-green text-emerald-800' : 'bg-slate-100 text-slate-400 hover:bg-slate-200'}">
               ${h.done ? 'Selesai' : 'Belum'}
             </button>
             <button type="button" onclick="deleteHabit('${h.id}')" class="text-slate-300 hover:text-rose-500 p-1">
@@ -1038,23 +1285,74 @@
       lucide.createIcons();
     }
 
-    window.toggleHabit = async function(id, done) {
-      if (!currentUser) return;
-      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', id), { done, updatedAt: serverTimestamp() });
+    window.toggleHabit = async function(id) {
+      const h = localHabits.find(item => item.id === id);
+      if (!h) return;
+      h.done = !h.done;
+      renderHabits();
+
+      if (currentUser) {
+        try {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', id), { done: h.done });
+        } catch(err) { console.warn("Cloud habit toggle warning:", err); }
+      }
     };
 
     window.deleteHabit = async function(id) {
-      if (!currentUser) return;
-      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', id));
+      localHabits = localHabits.filter(h => h.id !== id);
+      renderHabits();
+
+      if (currentUser) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', id));
+        } catch(err) { console.warn("Cloud habit delete warning:", err); }
+      }
     };
 
     document.getElementById('btn-add-habit').addEventListener('click', async () => {
       const title = prompt("Nama Kebiasaan / Target Baru:");
-      if (!title || !currentUser) return;
-      await addDoc(getPublicCollection('habits'), { title, done: false, createdAt: serverTimestamp() });
+      if (!title) return;
+      const id = 'hb_' + Date.now();
+      const newHabit = { id, title, done: false };
+      localHabits.push(newHabit);
+      renderHabits();
+
+      if (currentUser) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'habits', id), { ...newHabit, createdAt: serverTimestamp() });
+        } catch(err) { console.warn("Cloud add habit warning:", err); }
+      }
     });
 
-    // MOBILE SIDEBAR TOGGLE LOGIC
+    // NAVIGATION SYSTEM
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.remove('bg-pastel-soft', 'text-pastel-primary');
+        el.classList.add('text-slate-600');
+      });
+
+      const targetView = document.getElementById(`view-${tabName}`);
+      if (targetView) targetView.classList.remove('hidden');
+
+      const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-pastel-soft', 'text-pastel-primary');
+        activeBtn.classList.remove('text-slate-600');
+      }
+
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('backdrop').classList.add('hidden');
+    }
+
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tab = e.currentTarget.getAttribute('data-tab');
+        if (tab) switchTab(tab);
+      });
+    });
+
+    // MOBILE SIDEBAR TOGGLES
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('backdrop');
 
@@ -1073,15 +1371,33 @@
       backdrop.classList.add('hidden');
     });
 
-    // START INITIAL AUTH & LOAD
+    // INITIAL IMMEDIATE RENDER (No stuck state)
+    renderTodaySchedule();
+    renderFullScheduleTable();
+    renderTasks();
+    renderNotes();
+    renderPlanners();
+    renderLibrary();
+    renderHabits();
+
+    // START FIREBASE IN BACKGROUND
     initAuth();
   </script>
 </body>
 </html>
 ```
 
-### Fitur Utama:
-1. **Cloud Real-Time Syncing Live:** Setiap interaksi CRUD pada Jadwal, Tugas, Catatan, RPP, Buku Perpustakaan, dan Habit Tracker dipasang langsung ke Firestore real-time listener (`onSnapshot`). Perubahan dari satu perangkat (misal: Laptop) akan langsung muncul di perangkat lain (misal: Smartphone) secara otomatis.
-2. **Path Compliance Strict Guard:** Penggunaan jalur data Firestore mengikuti format standar `/artifacts/{appId}/public/data/{collectionName}` untuk memastikan keandalan akses.
-3. **Desain Bersih & Profesional:** Tanpa dekorasi berlebihan atau emoticon kaku, menggunakan font **Plus Jakarta Sans** dan skema warna pastel biru, pink, kuning, dan hijau yang estetik.
-4. **Responsif 2 Mode:** Menyediakan bilah samping (*Sidebar*) penuh di desktop yang secara fleksibel bertransisi menjadi *Drawer Menu* interaktif di layar smartphone.
+---
+
+### Perbaikan Utama yang Dilakukan:
+
+1. **Anti Stuck Loading & Fast Render:** Data awal jadwal (SD Islam Makarima: Ikrar Dhuha, Tahfidz, 4B, 4A, 5, 6, Perpus, Ishoma, Murojaah, Pramuka, TKA Literasi, Seni, dll.) langsung dimuat ke memori lokal secara instan. Antarmuka aplikasi langsung tampil tanpa menunggu respon koneksi Firestore.
+2. **Pembersihan Layout Text Leakage:** Teks deskripsi atau potongan markdown di luar area aplikasi telah dibersihkan sepenuhnya. Tata letak grid, padding, dan batas *container* diatur ulang agar konsisten di laptop maupun HP.
+3. **Modal CRUD Interaktif Lengkap di Semua Fitur:**
+   - **Jadwal Mengajar:** Modal edit & tambah slot waktu, hari, kegiatan, dan kategori warna.
+   - **Task Manager:** Modal edit deskripsi tugas, toggle status, dan tombol hapus.
+   - **Quick Notes:** Input judul, isi catatan, dan pilihan warna tempel.
+   - **Teaching Planner (RPP):** Modal form lengkap (Judul, Kelas, Topik, Tanggal) untuk Tambah dan Edit.
+   - **Digital Library:** Modal form lengkap (Judul Buku, Penulis, Status Peminjaman) untuk Tambah dan Edit.
+   - **Habit Tracker:** Toggle status selesai, tambah kebiasaan baru, dan hapus kebiasaan.
+4. **Desain Visual & Typo Pastel:** Menggunakan palet pastel profesional (*Soft Blue, Navy, Soft Yellow, Soft Pink, Soft Lavender, Mint*) dengan typography **Plus Jakarta Sans** dan sapaan personal **"Selamat Datang, Bu Hanifah"**.
