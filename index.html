@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Little Teacher Hub 🩵</title>
+  <title>Teacher Hub - Dashboard Guru</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,19 +13,19 @@
         extend: {
           colors: {
             pastel: {
-              primary: '#78B8E8',
-              soft: '#EAF5FF',
-              sky: '#B8DDF8',
-              navy: '#263B59',
-              bg: '#F7FAFE',
-              lavender: '#E8E4FF',
-              pink: '#FFE5ED',
-              yellow: '#FFF1C9',
-              green: '#DDF5E8',
+              primary: '#4A8BB2',
+              soft: '#EBF4FA',
+              sky: '#BCE0F5',
+              navy: '#1E293B',
+              bg: '#F8FAFC',
+              lavender: '#ECE8FF',
+              pink: '#FCE8EF',
+              yellow: '#FFF7D6',
+              green: '#E2F7ED',
             }
           },
           fontFamily: {
-            sans: ['Nunito', 'Plus Jakarta Sans', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'Nunito', 'sans-serif'],
           }
         }
       }
@@ -33,70 +33,77 @@
   </script>
 
   <!-- Google Fonts & Lucide Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-pastel-bg font-sans text-pastel-navy min-h-screen flex flex-col md:flex-row antialiased">
 
-  <!-- APP STATE / UI HOLDER -->
+  <style>
+    .card-clean {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, #4A8BB2 0%, #68A4C8 50%, #BCE0F5 100%);
+    }
+  </style>
+</head>
+<body class="bg-pastel-bg font-sans text-slate-800 min-h-screen flex flex-col md:flex-row antialiased">
+
   <div id="app" class="flex w-full min-h-screen">
     
-    <!-- MOBILE HEADER / HAMBURGER -->
-    <div class="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-pastel-soft p-4 flex justify-between items-center z-30">
-      <div class="flex items-center gap-2">
-        <span class="text-2xl">🐻</span>
-        <span class="font-bold text-pastel-navy">Little Teacher Hub</span>
+    <!-- HEADER MOBILE -->
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-slate-200 p-4 flex justify-between items-center z-30">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-pastel-primary text-white flex items-center justify-center font-bold text-sm">TH</div>
+        <span class="font-bold text-slate-800 text-base">Teacher Hub</span>
       </div>
-      <button id="mobile-menu-btn" class="p-2 rounded-xl bg-pastel-soft text-pastel-navy">
+      <button id="mobile-menu-btn" type="button" class="p-2 rounded-lg bg-slate-100 text-slate-700">
         <i data-lucide="menu"></i>
       </button>
     </div>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-pastel-soft transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto">
-      <div class="p-6 border-b border-pastel-soft flex justify-between items-center">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out overflow-y-auto">
+      <div class="p-6 border-b border-slate-100 flex justify-between items-center">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-pastel-soft flex items-center justify-center text-xl shadow-sm">
-            🐻
+          <div class="w-10 h-10 rounded-xl bg-pastel-primary text-white flex items-center justify-center font-extrabold text-base shadow-sm">
+            TH
           </div>
           <div>
-            <h1 class="font-bold text-base leading-tight">Little Teacher</h1>
-            <span class="text-xs text-slate-400 font-medium">Dashboard Hub</span>
+            <h1 class="font-extrabold text-base leading-tight text-slate-800">Teacher Hub</h1>
+            <span class="text-xs text-slate-500 font-medium">Workspace Digital</span>
           </div>
         </div>
-        <button id="close-sidebar-btn" class="md:hidden text-slate-400">
+        <button id="close-sidebar-btn" type="button" class="md:hidden text-slate-400 hover:text-slate-600">
           <i data-lucide="x"></i>
         </button>
       </div>
 
       <nav class="p-4 space-y-6">
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-2 px-3">GENERAL</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">UTAMA</p>
           <div class="space-y-1">
-            <a href="#dashboard" class="nav-item active flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm bg-pastel-soft text-pastel-primary shadow-sm">
-              <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
-            </a>
-            <a href="#schedule" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-50">
-              <i data-lucide="calendar" class="w-4 h-4"></i> Jadwal Mengajar
-            </a>
-            <a href="#tasks" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-50">
-              <i data-lucide="check-square" class="w-4 h-4"></i> Task Manager
-            </a>
-            <a href="#notes" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-50">
-              <i data-lucide="sticky-note" class="w-4 h-4"></i> Quick Notes
-            </a>
+            <button type="button" data-tab="dashboard" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm bg-pastel-soft text-pastel-primary">
+              <i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Dashboard
+            </button>
+            <button type="button" data-tab="schedule" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="calendar" class="w-4.5 h-4.5"></i> Jadwal Mengajar
+            </button>
+            <button type="button" data-tab="tasks" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="check-square" class="w-4.5 h-4.5"></i> Task Manager
+            </button>
+            <button type="button" data-tab="notes" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="file-text" class="w-4.5 h-4.5"></i> Quick Notes
+            </button>
           </div>
         </div>
 
         <div>
-          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-2 px-3">TEACHING TOOLS</p>
+          <p class="text-[11px] font-bold text-slate-400 tracking-wider mb-3 px-3">PERSONAL SPACE</p>
           <div class="space-y-1">
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm text-slate-400 hover:bg-slate-50">
-              <i data-lucide="book-open" class="w-4 h-4"></i> Teaching Planner
-            </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-sm text-slate-400 hover:bg-slate-50">
-              <i data-lucide="folder-kanban" class="w-4 h-4"></i> Bank Materi
-            </a>
+            <button type="button" data-tab="habits" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-50">
+              <i data-lucide="award" class="w-4.5 h-4.5"></i> Habit Tracker
+            </button>
           </div>
         </div>
       </nav>
@@ -105,232 +112,379 @@
     <!-- BACKDROP MOBILE -->
     <div id="backdrop" class="fixed inset-0 bg-slate-900/20 z-30 hidden md:hidden"></div>
 
-    <!-- MAIN CONTENT -->
+    <!-- UTAMA CONTAINER -->
     <main class="flex-1 p-4 md:p-8 pt-20 md:pt-8 overflow-y-auto">
       
-      <!-- TOPBAR -->
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+      <!-- HERO BANNER -->
+      <div class="hero-banner rounded-2xl p-6 md:p-8 text-white shadow-sm mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 class="text-2xl font-bold text-pastel-navy">Halo, Ibu Guru! 🩵</h2>
-          <p id="current-date" class="text-sm text-slate-400 font-semibold">Memuat tanggal...</p>
+          <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-md text-xs font-semibold mb-2">Dashboard Pengajar</span>
+          <h2 class="text-2xl md:text-3xl font-bold">Selamat Datang, Ibu Guru</h2>
+          <p id="current-date" class="text-xs md:text-sm font-medium text-white/90 mt-1">Memuat tanggal...</p>
         </div>
+
         <div class="flex items-center gap-3 w-full md:w-auto">
-          <div class="bg-white border border-pastel-soft px-4 py-2 rounded-2xl flex items-center gap-2 shadow-sm w-full md:w-64">
+          <div class="bg-white px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm w-full md:w-64">
             <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
-            <input type="text" placeholder="Cari jadwal, tugas..." class="bg-transparent border-none text-sm outline-none w-full">
-          </div>
-          <div class="w-10 h-10 rounded-2xl bg-pastel-soft border border-pastel-sky flex items-center justify-center font-bold text-pastel-primary shadow-sm">
-            👩‍🏫
+            <input type="text" placeholder="Cari kegiatan atau tugas..." class="bg-transparent border-none text-xs font-medium outline-none w-full text-slate-800 placeholder:text-slate-400">
           </div>
         </div>
       </div>
 
-      <!-- DASHBOARD WIDGETS -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- TODAY'S SCHEDULE -->
-        <div class="md:col-span-2 bg-white rounded-3xl p-6 border border-pastel-soft shadow-sm space-y-4">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center gap-2">
-              <span class="text-xl">📚</span>
-              <h3 class="font-bold text-lg text-pastel-navy">Jadwal Mengajar Hari Ini</h3>
+      <!-- TAB 1: DASHBOARD -->
+      <section id="view-dashboard" class="tab-view space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- TODAY'S SCHEDULE -->
+          <div class="md:col-span-2 card-clean rounded-2xl p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+              <div>
+                <h3 class="font-bold text-base text-slate-800">Jadwal Mengajar Hari Ini</h3>
+                <p class="text-xs text-slate-400 font-medium">SD Islam Makarima</p>
+              </div>
+              <span id="day-badge" class="bg-pastel-soft text-pastel-primary px-3 py-1 rounded-md text-xs font-bold">Hari Ini</span>
             </div>
-            <span id="day-badge" class="bg-pastel-soft text-pastel-primary px-3 py-1 rounded-full text-xs font-bold">Hari Ini</span>
+            
+            <div id="today-schedule-list" class="space-y-3"></div>
           </div>
 
-          <div id="today-schedule-list" class="space-y-3">
-            <div class="text-center py-8 text-slate-400 text-sm">Menyinkronkan data dari Firebase...</div>
+          <!-- SIDE WIDGETS -->
+          <div class="space-y-6">
+            <div class="bg-amber-50/80 border border-amber-200/60 rounded-2xl p-5">
+              <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-2">Catatan Pengingat</h4>
+              <p class="text-xs text-amber-900 leading-relaxed font-medium">
+                "Pendidikan bukan sekadar mengisi wadah, melainkan menyalakan api pengetahuan."
+              </p>
+            </div>
+
+            <div class="card-clean rounded-2xl p-6 space-y-4">
+              <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-sm text-slate-800">Tugas Hari Ini</h3>
+                <span id="task-count-badge" class="bg-slate-100 text-slate-700 text-xs px-2.5 py-0.5 rounded-md font-bold">0</span>
+              </div>
+              
+              <form id="add-task-form-dash" class="flex gap-2">
+                <input id="task-input-dash" type="text" placeholder="Tambah tugas baru..." class="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none focus:border-pastel-primary font-medium">
+                <button type="submit" class="bg-pastel-primary text-white px-3 py-2 rounded-xl text-xs font-bold">Tambah</button>
+              </form>
+
+              <div id="tasks-preview-list" class="space-y-2"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 2: JADWAL MENGAJAR -->
+      <section id="view-schedule" class="tab-view hidden space-y-6">
+        <div class="card-clean rounded-2xl p-6 space-y-4">
+          <div class="border-b border-slate-100 pb-4">
+            <h3 class="font-bold text-lg text-slate-800">Jadwal Mengajar Pekanan</h3>
+            <p class="text-xs text-slate-500 font-medium">Bahasa Indonesia, Seni, dan Perpustakaan • SD Islam Makarima</p>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full border-collapse bg-white">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-left text-xs font-bold text-slate-600">
+                  <th class="p-3.5">WAKTU</th>
+                  <th class="p-3.5 text-center">SENIN</th>
+                  <th class="p-3.5 text-center">SELASA</th>
+                  <th class="p-3.5 text-center">RABU</th>
+                  <th class="p-3.5 text-center">KAMIS</th>
+                  <th class="p-3.5 text-center">JUM'AT</th>
+                </tr>
+              </thead>
+              <tbody id="full-schedule-table-body" class="text-xs font-medium"></tbody>
+            </table>
           </div>
         </div>
+      </section>
 
-        <!-- QUICK TASKS WIDGET -->
-        <div class="bg-white rounded-3xl p-6 border border-pastel-soft shadow-sm space-y-4">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center gap-2">
-              <span class="text-xl">✨</span>
-              <h3 class="font-bold text-lg text-pastel-navy">Tugas Hari Ini</h3>
-            </div>
-          </div>
-
-          <form id="add-task-form" class="flex gap-2">
-            <input id="task-input" type="text" placeholder="Tambah tugas baru..." class="flex-1 border border-pastel-soft rounded-xl px-3 py-2 text-sm outline-none focus:border-pastel-primary">
-            <button type="submit" class="bg-pastel-primary text-white p-2 rounded-xl">
-              <i data-lucide="plus" class="w-4 h-4"></i>
-            </button>
+      <!-- TAB 3: TASK MANAGER -->
+      <section id="view-tasks" class="tab-view hidden space-y-6">
+        <div class="card-clean rounded-2xl p-6 space-y-4">
+          <h3 class="font-bold text-lg text-slate-800">Daftar Tugas & Administrasi</h3>
+          <form id="add-task-form-main" class="flex gap-2">
+            <input id="task-input-main" type="text" placeholder="Tulis rencana atau tugas baru..." class="flex-1 border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-pastel-primary font-medium">
+            <button type="submit" class="bg-pastel-primary text-white font-bold px-5 py-2.5 rounded-xl text-sm">Simpan</button>
           </form>
-
-          <div id="tasks-list" class="space-y-2">
-            <!-- Dynamic task items -->
-          </div>
+          <div id="tasks-full-list" class="space-y-2 pt-2"></div>
         </div>
+      </section>
 
-      </div>
+      <!-- TAB 4: QUICK NOTES -->
+      <section id="view-notes" class="tab-view hidden space-y-6">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-lg text-slate-800">Catatan Tempel</h3>
+          <button id="btn-add-note" type="button" class="bg-pastel-primary text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm">
+            <i data-lucide="plus" class="w-4 h-4"></i> Catatan Baru
+          </button>
+        </div>
+        <div id="notes-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"></div>
+      </section>
+
+      <!-- TAB 5: HABIT TRACKER -->
+      <section id="view-habits" class="tab-view hidden space-y-6">
+        <div class="card-clean rounded-2xl p-6 space-y-4">
+          <h3 class="font-bold text-lg text-slate-800">Habit Tracker Pengajar</h3>
+          <div class="space-y-3" id="habit-list"></div>
+        </div>
+      </section>
 
     </main>
   </div>
 
-  <!-- FIREBASE CONFIG & INITIALIZATION (Modular SDK v10) -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, doc, setDoc, addDoc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
-
-    // Konfigurasi Firebase milikmu
-    const firebaseConfig = {
-      apiKey: "AIzaSyCQGMbFxIH1Y1LCLVM1Qwb_JREYeX2U_ds",
-      authDomain: "teachberry.firebaseapp.com",
-      projectId: "teachberry",
-      storageBucket: "teachberry.firebasestorage.app",
-      messagingSenderId: "27935164603",
-      appId: "1:27935164603:web:2a381464d037693d8e819e"
-    };
-
-    // Inisialisasi Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // ID pengguna default (dapat diganti dengan Auth sesungguhnya)
-    const USER_ID = "default_teacher";
-
-    // Data Jadwal Awal (SD Islam Makarima)
+  <!-- LOGIK SISTEM DAN JAVASCRIPT -->
+  <script>
+    // DATA JADWAL (SD ISLAM MAKARIMA)
     const INITIAL_SCHEDULE = [
-      { day: "Senin", timeSlot: "07.00–07.35", activity: "Ikrar, Dhuha, Dzikir Pagi", category: "ibadah" },
-      { day: "Senin", timeSlot: "07.35–08.35", activity: "Tahfidz", category: "tahfidz" },
+      { day: "Senin", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { day: "Senin", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
       { day: "Senin", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
       { day: "Senin", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
-      { day: "Senin", timeSlot: "09.45–10.20", activity: "Perpus (5)", category: "perpus" },
-      { day: "Senin", timeSlot: "10.20–10.35", activity: "Istirahat 1", category: "istirahat" },
+      { day: "Senin", timeSlot: "09.45–10.20", activity: "PERPUS (5)", category: "perpus" },
+      { day: "Senin", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
       { day: "Senin", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Senin", timeSlot: "11.10–11.45", activity: "5 & Perpus (2B)", category: "perpus" },
-      { day: "Senin", timeSlot: "11.45–12.25", activity: "Ishoma", category: "istirahat" },
+      { day: "Senin", timeSlot: "11.10–11.45", activity: "5 & PERPUS (2B)", category: "perpus" },
+      { day: "Senin", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
       { day: "Senin", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
       { day: "Senin", timeSlot: "13.00–13.35", activity: "6", category: "kelas" },
-      { day: "Senin", timeSlot: "13.35–14.00", activity: "Perpus (3C)", category: "perpus" },
-      { day: "Senin", timeSlot: "14.00–14.30", activity: "Murojaah", category: "ibadah" },
-      // Selasa
-      { day: "Selasa", timeSlot: "07.00–07.35", activity: "Ikrar, Dhuha, Dzikir Pagi", category: "ibadah" },
-      { day: "Selasa", timeSlot: "07.35–08.35", activity: "Tahfidz", category: "tahfidz" },
-      { day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & Perpus (2A)", category: "perpus" },
+      { day: "Senin", timeSlot: "13.35–14.00", activity: "PERPUS (3C)", category: "perpus" },
+      { day: "Senin", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { day: "Selasa", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { day: "Selasa", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { day: "Selasa", timeSlot: "08.35–09.10", activity: "4A & PERPUS (2A)", category: "perpus" },
       { day: "Selasa", timeSlot: "09.10–09.45", activity: "4A", category: "kelas" },
-      { day: "Selasa", timeSlot: "09.45–10.20", activity: "Perpus (4A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "10.20–10.35", activity: "Istirahat 1", category: "istirahat" },
+      { day: "Selasa", timeSlot: "09.45–10.20", activity: "PERPUS (4A)", category: "perpus" },
+      { day: "Selasa", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
       { day: "Selasa", timeSlot: "10.35–11.10", activity: "5", category: "kelas" },
-      { day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & Perpus (1A)", category: "perpus" },
-      { day: "Selasa", timeSlot: "11.45–12.25", activity: "Ishoma", category: "istirahat" },
+      { day: "Selasa", timeSlot: "11.10–11.45", activity: "5 & PERPUS (1A)", category: "perpus" },
+      { day: "Selasa", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
       { day: "Selasa", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & Perpus (2C)", category: "perpus" },
+      { day: "Selasa", timeSlot: "13.00–13.35", activity: "6 & PERPUS (2C)", category: "perpus" },
       { day: "Selasa", timeSlot: "13.35–14.00", activity: "6", category: "kelas" },
-      { day: "Selasa", timeSlot: "14.00–14.30", activity: "Murojaah", category: "ibadah" }
+      { day: "Selasa", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { day: "Rabu", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { day: "Rabu", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { day: "Rabu", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { day: "Rabu", timeSlot: "11.10–11.45", activity: "4A", category: "kelas" },
+      { day: "Rabu", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { day: "Rabu", timeSlot: "12.25–13.00", activity: "4A", category: "kelas" },
+      { day: "Rabu", timeSlot: "13.00–13.35", activity: "PERPUS (4B)", category: "perpus" },
+      { day: "Rabu", timeSlot: "13.35–14.00", activity: "4B", category: "kelas" },
+      { day: "Rabu", timeSlot: "14.00–14.30", activity: "MUROJAAH", category: "ibadah" },
+      { day: "Kamis", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { day: "Kamis", timeSlot: "07.35–08.35", activity: "PRAMUKA", category: "kegiatan_khusus" },
+      { day: "Kamis", timeSlot: "08.35–09.10", activity: "4A & PERPUS (3B)", category: "perpus" },
+      { day: "Kamis", timeSlot: "09.45–10.20", activity: "TKA LITERASI", category: "kegiatan_khusus" },
+      { day: "Kamis", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { day: "Kamis", timeSlot: "10.35–11.10", activity: "SENI (4A)", category: "kelas" },
+      { day: "Kamis", timeSlot: "11.10–11.45", activity: "SENI (4A)", category: "kelas" },
+      { day: "Kamis", timeSlot: "11.45–12.25", activity: "ISHOMA", category: "istirahat" },
+      { day: "Kamis", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { day: "Kamis", timeSlot: "13.00–13.35", activity: "6 & PERPUS (1B)", category: "perpus" },
+      { day: "Kamis", timeSlot: "14.00–14.30", activity: "TAHFIDZ", category: "tahfidz" },
+      { day: "Jumat", timeSlot: "07.00–07.35", activity: "IKRAR - DHUHA - DZIKIR PAGI", category: "ibadah" },
+      { day: "Jumat", timeSlot: "07.35–08.35", activity: "TAHFIDZ", category: "tahfidz" },
+      { day: "Jumat", timeSlot: "08.35–09.10", activity: "4B", category: "kelas" },
+      { day: "Jumat", timeSlot: "09.10–09.45", activity: "4B", category: "kelas" },
+      { day: "Jumat", timeSlot: "09.45–10.20", activity: "5 & PERPUS (3A)", category: "perpus" },
+      { day: "Jumat", timeSlot: "10.20–10.35", activity: "ISTIRAHAT 1", category: "istirahat" },
+      { day: "Jumat", timeSlot: "10.35–11.10", activity: "5 & PERPUS (1C)", category: "perpus" },
+      { day: "Jumat", timeSlot: "11.10–12.25", activity: "ISHOMA", category: "istirahat" },
+      { day: "Jumat", timeSlot: "12.25–13.00", activity: "6", category: "kelas" },
+      { day: "Jumat", timeSlot: "13.00–14.00", activity: "EKSKUL / TKA LITERASI", category: "kegiatan_khusus" },
+      { day: "Jumat", timeSlot: "14.00–14.30", activity: "PULANG: 14.30 WIB", category: "istirahat" }
     ];
 
-    // Helper Kategori Warna Pastel
+    let tasks = [
+      { id: '1', title: 'Menyiapkan Modul Pembelajaran Kelas 4B', completed: false },
+      { id: '2', title: 'Koreksi Lembar Kerja Siswa', completed: true }
+    ];
+
     const getBadgeStyle = (cat) => {
       switch(cat) {
-        case 'ibadah': return 'bg-pastel-yellow text-amber-800';
-        case 'tahfidz': return 'bg-pastel-lavender text-purple-900';
-        case 'kelas': return 'bg-pastel-soft text-pastel-navy font-bold';
-        case 'perpus': return 'bg-pastel-pink text-pink-900';
-        case 'istirahat': return 'bg-slate-100 text-slate-500';
-        default: return 'bg-pastel-soft text-pastel-navy';
+        case 'ibadah': return 'bg-pastel-yellow text-amber-900 border border-amber-200';
+        case 'tahfidz': return 'bg-pastel-lavender text-purple-900 border border-purple-200';
+        case 'kelas': return 'bg-pastel-soft text-pastel-primary border border-pastel-sky';
+        case 'perpus': return 'bg-pastel-pink text-pink-900 border border-pink-200';
+        case 'istirahat': return 'bg-slate-100 text-slate-500 font-normal';
+        case 'kegiatan_khusus': return 'bg-pastel-green text-emerald-900 border border-emerald-200';
+        default: return 'bg-slate-100 text-slate-700';
       }
     };
 
-    // Formatter Tanggal
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const today = new Date();
-    document.getElementById('current-date').textContent = today.toLocaleDateString('id-ID', options);
+    // NAVIGASI TAB UTAMA
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.remove('bg-pastel-soft', 'text-pastel-primary');
+        el.classList.add('text-slate-600');
+      });
 
-    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-    const currentDayName = dayNames[today.getDay()];
-    document.getElementById('day-badge').textContent = currentDayName;
+      const targetView = document.getElementById(`view-${tabName}`);
+      if (targetView) targetView.classList.remove('hidden');
 
-    // SINKRONISASI REAL-TIME JADWAL (FIRESTORE)
-    const scheduleColRef = collection(db, "users", USER_ID, "schedule");
-
-    onSnapshot(scheduleColRef, (snapshot) => {
-      if (snapshot.empty) {
-        // Jika database masih kosong, isi dengan data awal
-        INITIAL_SCHEDULE.forEach(item => {
-          addDoc(scheduleColRef, { ...item, createdAt: serverTimestamp() });
-        });
-      } else {
-        const scheduleData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        renderTodaySchedule(scheduleData, currentDayName);
+      const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-pastel-soft', 'text-pastel-primary');
+        activeBtn.classList.remove('text-slate-600');
       }
+
+      // Tutup menu mobile jika terbuka
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('backdrop').classList.add('hidden');
+    }
+
+    // EVENT LISTENERS NAVIGASI
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tab = e.currentTarget.getAttribute('data-tab');
+        if (tab) switchTab(tab);
+      });
     });
 
-    function renderTodaySchedule(schedules, dayName) {
+    // RENDER JADWAL HARI INI
+    const today = new Date();
+    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const currentDayName = dayNames[today.getDay()];
+    
+    document.getElementById('current-date').textContent = today.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('day-badge').textContent = currentDayName;
+
+    function renderTodaySchedule() {
       const container = document.getElementById('today-schedule-list');
-      const filtered = schedules.filter(s => s.day === (dayName === 'Minggu' || dayName === 'Sabtu' ? 'Senin' : dayName));
+      const targetDay = (currentDayName === 'Minggu' || currentDayName === 'Sabtu') ? 'Senin' : currentDayName;
+      const filtered = INITIAL_SCHEDULE.filter(s => s.day === targetDay);
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-sm">Tidak ada jadwal mengajar hari ini. ✨</div>`;
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs font-semibold">Tidak ada jadwal mengajar hari ini.</div>`;
         return;
       }
 
       container.innerHTML = filtered.map(item => `
-        <div class="flex items-center justify-between p-3.5 rounded-2xl ${getBadgeStyle(item.category)} shadow-sm transition">
+        <div class="flex items-center justify-between p-3 rounded-xl ${getBadgeStyle(item.category)}">
           <div class="flex items-center gap-3">
-            <span class="text-xs font-bold px-2.5 py-1 bg-white/70 rounded-lg">${item.timeSlot}</span>
-            <span class="font-bold text-sm">${item.activity}</span>
+            <span class="text-xs font-bold px-2 py-0.5 bg-white/80 rounded">${item.timeSlot}</span>
+            <span class="font-bold text-xs">${item.activity}</span>
           </div>
-          <span class="text-xs font-semibold opacity-75 capitalize">${item.category}</span>
+          <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-white/40">${item.category}</span>
         </div>
       `).join('');
     }
 
-    // SINKRONISASI REAL-TIME TASK MANAGER (FIRESTORE)
-    const tasksColRef = collection(db, "users", USER_ID, "tasks");
+    // RENDER TABEL JADWAL MENGAJAR PEKANAN
+    function renderFullScheduleTable() {
+      const timeSlots = [
+        "07.00–07.35", "07.35–08.35", "08.35–09.10", "09.10–09.45",
+        "09.45–10.20", "10.20–10.35", "10.35–11.10", "11.10–11.45",
+        "11.45–12.25", "12.25–13.00", "13.00–13.35", "13.35–14.00", "14.00–14.30"
+      ];
+      const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+      const tbody = document.getElementById('full-schedule-table-body');
 
-    document.getElementById('add-task-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = document.getElementById('task-input');
-      const title = input.value.trim();
-      if (!title) return;
+      tbody.innerHTML = timeSlots.map(slot => `
+        <tr class="border-b border-slate-100 hover:bg-slate-50">
+          <td class="p-3 font-semibold text-slate-500 whitespace-nowrap">${slot}</td>
+          ${days.map(day => {
+            const match = INITIAL_SCHEDULE.find(s => s.day === day && s.timeSlot === slot);
+            return match 
+              ? `<td class="p-2 text-center"><div class="p-2 rounded-lg ${getBadgeStyle(match.category)} font-bold text-center">${match.activity}</div></td>`
+              : `<td class="p-2 text-slate-300 text-center"><div class="p-2 border border-dashed border-slate-200 rounded-lg text-[10px]">Kosong</div></td>`;
+          }).join('')}
+        </tr>
+      `).join('');
+    }
 
-      await addDoc(tasksColRef, {
-        title: title,
-        completed: false,
-        createdAt: serverTimestamp()
-      });
-      input.value = '';
-    });
+    // MANAGEMENT TUGAS (TASK MANAGER)
+    function renderTasks() {
+      document.getElementById('task-count-badge').textContent = tasks.filter(t => !t.completed).length;
 
-    onSnapshot(tasksColRef, (snapshot) => {
-      const tasksList = document.getElementById('tasks-list');
-      if (snapshot.empty) {
-        tasksList.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Belum ada tugas. Yuk tambah! ✨</p>`;
-        return;
-      }
-
-      tasksList.innerHTML = snapshot.docs.map(docSnap => {
-        const task = docSnap.data();
-        const taskId = docSnap.id;
-        return `
-          <div class="flex items-center justify-between p-3 rounded-xl bg-pastel-bg border border-pastel-soft">
-            <div class="flex items-center gap-2">
-              <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                onchange="window.toggleTask('${taskId}', ${!task.completed})"
-                class="rounded text-pastel-primary focus:ring-0">
-              <span class="text-xs font-semibold ${task.completed ? 'line-through text-slate-400' : 'text-pastel-navy'}">${task.title}</span>
+      const renderList = (containerId) => {
+        const el = document.getElementById(containerId);
+        if (tasks.length === 0) {
+          el.innerHTML = `<p class="text-xs text-slate-400 font-medium text-center py-4">Belum ada tugas.</p>`;
+          return;
+        }
+        el.innerHTML = tasks.map(t => `
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" ${t.completed ? 'checked' : ''} 
+                onchange="toggleTask('${t.id}')"
+                class="rounded text-pastel-primary focus:ring-0 w-4 h-4 cursor-pointer">
+              <span class="text-xs font-semibold ${t.completed ? 'line-through text-slate-400' : 'text-slate-700'}">${t.title}</span>
             </div>
-            <button onclick="window.deleteTask('${taskId}')" class="text-slate-300 hover:text-rose-400">
+            <button type="button" onclick="deleteTask('${t.id}')" class="text-slate-300 hover:text-rose-500">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
             </button>
           </div>
-        `;
-      }).join('');
-      
+        `).join('');
+      };
+
+      renderList('tasks-preview-list');
+      renderList('tasks-full-list');
       lucide.createIcons();
+    }
+
+    window.toggleTask = function(id) {
+      tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      renderTasks();
+    };
+
+    window.deleteTask = function(id) {
+      tasks = tasks.filter(t => t.id !== id);
+      renderTasks();
+    };
+
+    function addTask(inputEl) {
+      const title = inputEl.value.trim();
+      if (!title) return;
+      tasks.push({ id: Date.now().toString(), title, completed: false });
+      inputEl.value = '';
+      renderTasks();
+    }
+
+    document.getElementById('add-task-form-dash').addEventListener('submit', (e) => {
+      e.preventDefault();
+      addTask(document.getElementById('task-input-dash'));
     });
 
-    // Event Handler Global untuk Toggle & Delete Task
-    window.toggleTask = async (id, status) => {
-      await updateDoc(doc(db, "users", USER_ID, "tasks", id), { completed: status });
-    };
+    document.getElementById('add-task-form-main').addEventListener('submit', (e) => {
+      e.preventDefault();
+      addTask(document.getElementById('task-input-main'));
+    });
 
-    window.deleteTask = async (id) => {
-      await deleteDoc(doc(db, "users", USER_ID, "tasks", id));
-    };
+    // HABIT TRACKER DEMO
+    const habits = [
+      { title: "Menyiapkan Modul Ajar Pekanan", done: true },
+      { title: "Dzikir Pagi Bersama Siswa", done: true },
+      { title: "Pemeriksaan Buku Tugas Bahasa Indonesia", done: false },
+      { title: "Pencatatan Peminjaman Buku Perpustakaan", done: false }
+    ];
+
+    document.getElementById('habit-list').innerHTML = habits.map(h => `
+      <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-white">
+        <span class="text-xs font-semibold text-slate-700">${h.title}</span>
+        <span class="text-xs font-bold px-3 py-1 rounded-md ${h.done ? 'bg-pastel-green text-emerald-800' : 'bg-slate-100 text-slate-400'}">
+          ${h.done ? 'Selesai' : 'Belum'}
+        </span>
+      </div>
+    `).join('');
+
+    // STICKY NOTES
+    document.getElementById('btn-add-note').addEventListener('click', () => {
+      const grid = document.getElementById('notes-grid');
+      const colors = ['bg-pastel-yellow', 'bg-pastel-pink', 'bg-pastel-lavender', 'bg-pastel-green'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      const noteHtml = `
+        <div class="${color} p-4 rounded-xl border border-black/5 space-y-2">
+          <input type="text" placeholder="Judul Catatan..." class="bg-transparent font-bold text-xs text-slate-800 outline-none w-full placeholder:text-slate-500">
+          <textarea placeholder="Tulis rincian catatan di sini..." class="bg-transparent text-xs font-medium text-slate-700 outline-none w-full resize-none h-20 placeholder:text-slate-400"></textarea>
+        </div>
+      `;
+      grid.insertAdjacentHTML('beforeend', noteHtml);
+    });
 
     // MOBILE SIDEBAR TOGGLE
     const sidebar = document.getElementById('sidebar');
@@ -341,15 +495,20 @@
       backdrop.classList.remove('hidden');
     });
 
-    const closeSidebar = () => {
+    document.getElementById('close-sidebar-btn').addEventListener('click', () => {
       sidebar.classList.add('-translate-x-full');
       backdrop.classList.add('hidden');
-    };
+    });
 
-    document.getElementById('close-sidebar-btn').addEventListener('click', closeSidebar);
-    backdrop.addEventListener('click', closeSidebar);
+    backdrop.addEventListener('click', () => {
+      sidebar.classList.add('-translate-x-full');
+      backdrop.classList.add('hidden');
+    });
 
-    // Render Lucide Icons saat pertama muat
+    // INIT INITIAL STATE
+    renderTodaySchedule();
+    renderFullScheduleTable();
+    renderTasks();
     lucide.createIcons();
   </script>
 </body>
